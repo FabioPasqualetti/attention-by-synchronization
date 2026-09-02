@@ -1,0 +1,16 @@
+{
+  "d_osc": 32,
+  "attn_type": "kuramoto",
+  "seeds": {
+    "0": 102.67116360395164,
+    "1": 102.52236433160756,
+    "2": 102.62240024778431,
+    "3": 101.9826,
+    "4": 103.00665346241125
+  },
+  "n_seeds": 5,
+  "mean": 102.5610351291501,
+  "std": 0.3718,
+  "softmax_ppl": 99.58,
+  "notes": "Seeds 0-2, seed 3 (evaluated from its epoch-30 checkpoint) and seed 4 were trained in separate runs of the same configuration."
+}

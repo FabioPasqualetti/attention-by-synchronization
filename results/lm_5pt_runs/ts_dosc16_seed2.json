@@ -1,0 +1,29 @@
+{
+  "dataset": "ts",
+  "d_osc": 16,
+  "seed": 2,
+  "val_ppl": 9.384207645601402,
+  "train_loss_history": [
+    2.9177,
+    2.4888,
+    2.3969,
+    2.3621,
+    2.3506
+  ],
+  "val_ppl_history": [
+    11.77,
+    10.14,
+    9.61,
+    9.42,
+    9.38
+  ],
+  "wall_clock_seconds": 13483.1,
+  "machine": "M1_iMac",
+  "pytorch_version": "2.8.0",
+  "mps_available": true,
+  "started_at": "2026-06-03T16:15:21",
+  "finished_at": "2026-06-03T20:00:04",
+  "label": "ts_d16_s2",
+  "device": "mps",
+  "note": "backbone/optimizer/schedule/tokenizer/split/eval identical to the other scaling points; only d_osc changed"
+}

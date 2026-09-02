@@ -1,0 +1,21 @@
+{
+  "name": "kws_osc_d2_repro",
+  "ckpt": "results/repro/ckpt/kws_B1_s0_final.pt",
+  "stats": {
+    "n": 362894,
+    "min": 8.90280534804333e-06,
+    "max": 110.47146606445312,
+    "mean": 9.741089971778866,
+    "pct": {
+      "0.1": 0.0011336237228242682,
+      "1": 0.039307510778307915,
+      "5": 0.4336461767554284,
+      "50": 7.933287620544434
+    },
+    "frac_below_0.01": 0.004298775951104179
+  },
+  "csv": "results/theory_degenerate_tokens/kws_osc_d2_repro_hnorm.csv",
+  "pdf": "figures/diagnostics/theory_degenerate_tokens/kws_osc_d2_repro_hnorm_hist.pdf",
+  "exp": "theory_degenerate_tokens",
+  "key": "kws_osc_d2_repro"
+}

@@ -1,0 +1,9 @@
+{
+  "target": "kws",
+  "type": "coupling",
+  "scale": 0.01,
+  "draw": 1,
+  "acc": 0.8890089116932217,
+  "exp": "robustness_perturbations",
+  "key": "kws_coupling_s0.01_d1"
+}

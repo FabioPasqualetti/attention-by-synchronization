@@ -1,0 +1,80 @@
+{
+  "description": "Integrator independence: Euler vs RK45 vs analytic fixed point; angle deviation (deg) and max|delta attn| between integrators on trained models.",
+  "cases": [
+    {
+      "name": "KWS osc d2",
+      "d_osc": 2,
+      "n_oscillators": "64x2x49",
+      "degenerate_mask_criterion": "norm_h < 0.01",
+      "n_valid_tokens": 6272,
+      "n_excluded_degenerate": 1,
+      "fraction_excluded": 0.0002,
+      "pairs": {
+        "Euler vs RK45": {
+          "raw_median_deg": 0.0,
+          "raw_max_deg": 22.0695,
+          "masked_median_deg": 0.0,
+          "masked_max_deg": 22.0695,
+          "raw_max_abs_delta_attn": 0.011158623732626438,
+          "masked_max_abs_delta_attn": 0.011158623732626438
+        },
+        "Euler vs analytic": {
+          "raw_median_deg": 0.0,
+          "raw_max_deg": 148.8256,
+          "masked_median_deg": 0.0,
+          "masked_max_deg": 148.8256,
+          "raw_max_abs_delta_attn": 0.05424025282263756,
+          "masked_max_abs_delta_attn": 0.04934241622686386
+        },
+        "RK45 vs analytic": {
+          "raw_median_deg": 0.0,
+          "raw_max_deg": 148.7399,
+          "masked_median_deg": 0.0,
+          "masked_max_deg": 148.7399,
+          "raw_max_abs_delta_attn": 0.05424027144908905,
+          "masked_max_abs_delta_attn": 0.049343425780534744
+        }
+      }
+    },
+    {
+      "name": "TinyStories osc d8",
+      "d_osc": 8,
+      "n_oscillators": "8x4x128",
+      "degenerate_mask_criterion": "norm_h < 0.01",
+      "n_valid_tokens": 3268,
+      "n_excluded_degenerate": 7,
+      "fraction_excluded": 0.0021,
+      "pairs": {
+        "Euler vs RK45": {
+          "raw_median_deg": 0.0,
+          "raw_max_deg": 44.4813,
+          "masked_median_deg": 0.0,
+          "masked_max_deg": 44.4813,
+          "raw_max_abs_delta_attn": 0.07188540697097778,
+          "masked_max_abs_delta_attn": 0.07188540697097778
+        },
+        "Euler vs analytic": {
+          "raw_median_deg": 0.0198,
+          "raw_max_deg": 120.7385,
+          "masked_median_deg": 0.0198,
+          "masked_max_deg": 110.2363,
+          "raw_max_abs_delta_attn": 0.2306641787290573,
+          "masked_max_abs_delta_attn": 0.10346317291259766
+        },
+        "RK45 vs analytic": {
+          "raw_median_deg": 0.0,
+          "raw_max_deg": 120.7383,
+          "masked_median_deg": 0.0,
+          "masked_max_deg": 110.2082,
+          "raw_max_abs_delta_attn": 0.23066440224647522,
+          "masked_max_abs_delta_attn": 0.10346317291259766
+        }
+      }
+    }
+  ],
+  "notes": {
+    "finite_horizon_slow_escape": "Some tokens (e.g. TinyStories token 2322: 120.7deg at T=30; KWS token 2740) initialize near the unstable/antipodal equilibrium and have not reached the analytic fixed point at the inference horizon T=30. The max angle to the analytic point decays monotonically with T (see horizon_sweep.json: TS 120.7->44.5deg, KWS 148.8->22.1deg out to T=3000) and BOTH integrators track it. Finite-horizon effect, not a discrepancy; the analytic fixed point remains the attractor.",
+    "euler_stiffness_single_token": "One token (TinyStories token 2429, ||h||=1575.1, generic init 85.9deg to analytic / 94.1deg to antipode) is a fixed-step-Euler failure, NOT finite-horizon and NOT a theory effect: RK45 converges to the analytic fixed point exactly (0.0000deg at T=30, 300, 3000) while forward Euler (dt=0.05) is unstable at this large ||h|| and stays 44.48deg away at every T. Adaptive RK45 and the analytic fixed point agree; only fixed-step Euler fails. This is why the paper computes the fixed point analytically rather than by fixed-step integration.",
+    "median_note": "Median angles ~0.02deg (float32) are the arccos resolution floor near cos=1; float64 recompute gives the true residual (see median_deg_float64 in horizon_sweep.json)."
+  }
+}

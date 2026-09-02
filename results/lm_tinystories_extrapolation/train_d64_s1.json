@@ -1,0 +1,8 @@
+{
+  "d_osc": 64,
+  "seed": 1,
+  "val_ppl": 8.914925705151925,
+  "wall_sec": 14326.7,
+  "exp": "lm_tinystories_extrapolation",
+  "key": "train_d64_s1"
+}

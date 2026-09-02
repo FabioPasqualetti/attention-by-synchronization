@@ -1,0 +1,23 @@
+{
+  "attn_type": "kuramoto",
+  "seed": 0,
+  "lr": 0.0005,
+  "n_epochs": 40,
+  "val_acc": {
+    "all": 97.95,
+    "simple": 97.839,
+    "hard": 97.658
+  },
+  "failure": false,
+  "wall_sec": 176.0,
+  "arch": {
+    "d_model": 32,
+    "n_heads": 1,
+    "n_layers": 1,
+    "d_ff": 64,
+    "d_osc": 2,
+    "max_seq_len": 50
+  },
+  "exp": "sva_seed_robustness",
+  "key": "sweep_kuramoto_lr0.0005_ep40_s0"
+}

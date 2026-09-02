@@ -1,0 +1,28 @@
+{
+  "dataset": "wt2",
+  "d_osc": 8,
+  "attn_type": "kuramoto",
+  "smoke": false,
+  "device": "mps",
+  "seeds": {
+    "0": 105.56718132692373
+  },
+  "n_seeds": 1,
+  "mean": 105.56718132692373,
+  "std": 0.0,
+  "softmax_ppl": 99.58,
+  "errors": {},
+  "per_run": [
+    {
+      "label": "wt2_d8_s0",
+      "d_osc": 8,
+      "attn_type": "kuramoto",
+      "seed": 0,
+      "val_ppl": 105.56718132692373,
+      "seconds": 1839.6
+    }
+  ],
+  "generated": "2026-05-25T18:45:43",
+  "machine": "M1 iMac, mps, torch 2.8.0, py 3.11",
+  "notes": "d_osc scaling-law point; backbone/optimizer/schedule/tokenizer/split/eval identical to the other scaling points; only d_osc changed; seeds 0-4 trained."
+}

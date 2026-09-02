@@ -1,0 +1,31 @@
+{
+  "name": "osc_d4",
+  "mechanism": "oscillator",
+  "d_osc": 4,
+  "bound_rank": 5,
+  "effective_rank_causal_attn": {
+    "mean": 38.54105762252584,
+    "std": 21.749150820296016,
+    "n": 1024,
+    "min": 3.5456290245056152,
+    "max": 71.04786682128906
+  },
+  "participation_ratio": {
+    "mean": 22.169045999180526,
+    "std": 11.895279490544242,
+    "n": 1024,
+    "min": 2.5545990467071533,
+    "max": 41.87407684326172
+  },
+  "effective_rank_unmasked_similarity": {
+    "mean": 3.948729141266085,
+    "std": 0.8824909206291228,
+    "n": 1024,
+    "min": 1.1441513299942017,
+    "max": 4.862788677215576
+  },
+  "n_val_seqs": 128,
+  "ckpt": "results/lm_5pt_runs/checkpoints/ts_dosc4_seed0/ts_d4_s0_ep5.pt",
+  "exp": "lm_dimensional_bottleneck",
+  "key": "spectra_osc_d4"
+}

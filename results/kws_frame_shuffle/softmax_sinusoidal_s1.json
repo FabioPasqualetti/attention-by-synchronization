@@ -1,0 +1,24 @@
+{
+  "mech": "softmax",
+  "pe": "sinusoidal",
+  "seed": 1,
+  "ckpt_regenerated": true,
+  "intact_acc": 0.8968403996759384,
+  "shuffled_accs": [
+    0.6859303267620848,
+    0.6753983256818795,
+    0.7013232514177694
+  ],
+  "shuffled_mean": 0.6875506346205779,
+  "delta": 0.20928976505536057,
+  "perm_seeds": [
+    0,
+    1,
+    2
+  ],
+  "verified": true,
+  "regen_best_acc": 0.899540912773427,
+  "e1_val_acc": 0.899540912773427,
+  "exp": "kws_frame_shuffle",
+  "key": "softmax_sinusoidal_s1"
+}

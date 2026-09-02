@@ -1,0 +1,21 @@
+{
+  "name": "ts_osc_d8",
+  "ckpt": "results/lm_coupling_function/ckpt/ts_softplus_s0.pt",
+  "stats": {
+    "n": 380472,
+    "min": 9.293071343563497e-07,
+    "max": 2733.16943359375,
+    "mean": 56.8925404292222,
+    "pct": {
+      "0.1": 0.009477669137530028,
+      "1": 0.09684507496654987,
+      "5": 0.6071402877569199,
+      "50": 24.473509788513184
+    },
+    "frac_below_0.01": 0.0010697239218654723
+  },
+  "csv": "results/theory_degenerate_tokens/ts_osc_d8_hnorm.csv",
+  "pdf": "figures/diagnostics/theory_degenerate_tokens/ts_osc_d8_hnorm_hist.pdf",
+  "exp": "theory_degenerate_tokens",
+  "key": "ts_osc_d8"
+}

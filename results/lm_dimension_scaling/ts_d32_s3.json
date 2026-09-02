@@ -1,0 +1,14 @@
+{
+  "dataset": "ts",
+  "tag": "d32",
+  "d_osc": 32,
+  "attn_type": "kuramoto",
+  "seed": 3,
+  "val_ppl": 9.109865583281096,
+  "wall_sec": 13683.4,
+  "gate_ref_ppl": 9.105935918905722,
+  "gate_rel_dev": 0.0004315497506648291,
+  "gate_ok": true,
+  "exp": "lm_dimension_scaling",
+  "key": "ts_d32_s3"
+}

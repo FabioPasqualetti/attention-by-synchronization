@@ -1,0 +1,3 @@
+# Training logs are not tracked — respect the global *.log ignore.
+# Regenerate from scripts/run_dosc_sweep.sh if needed.
+logs/

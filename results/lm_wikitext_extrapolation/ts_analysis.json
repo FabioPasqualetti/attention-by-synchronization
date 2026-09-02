@@ -1,0 +1,52 @@
+{
+  "label": "TinyStories",
+  "dvals": [
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "base_mean": 8.544,
+  "base_sem": 0.0,
+  "n_base": 1,
+  "alpha": 0.530415116998633,
+  "C": 3.554220078026667,
+  "r2": 0.9983055604615388,
+  "pred_delta_point": 0.3914886302845184,
+  "pred_delta_median": 0.3916594993762671,
+  "sigma_pred": 0.00899987616738097,
+  "boot_ci95": [
+    0.372248751247336,
+    0.4068615872741189
+  ],
+  "predicted_ppl64": 8.935659499376268,
+  "d64_ppls": [
+    8.937896322556984,
+    8.914925705151925,
+    8.931271057516684
+  ],
+  "obs_delta_by_seed": [
+    0.3938963225569836,
+    0.37092570515192413,
+    0.3872710575166831
+  ],
+  "obs_mean_delta": 0.38403102840853026,
+  "obs_std_ppl": 0.011823098471156507,
+  "sem_obs": 0.006826069084977663,
+  "n_obs": 3,
+  "obs_mean_ppl64": 8.928031028408531,
+  "deviation": -0.007628470967736833,
+  "combined_uncertainty": 0.011295706714547778,
+  "z": -0.6753425137988136,
+  "p_two_sided": 0.4994581793129398,
+  "pred_interval95": [
+    0.3695199142157535,
+    0.4137990845367807
+  ],
+  "obs_mean_inside_PI": true,
+  "pct_ppl": -0.08537110180025684,
+  "conclusion": "CONSISTENT with the extrapolation (z=-0.68, two-sided p=0.499; observed mean \u0394 inside the 95% prediction interval).",
+  "exp": "lm_wikitext_extrapolation",
+  "key": "ts_analysis"
+}

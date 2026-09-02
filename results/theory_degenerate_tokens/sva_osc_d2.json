@@ -1,0 +1,21 @@
+{
+  "name": "sva_osc_d2",
+  "ckpt": "results/sva_seed_robustness/ckpt/main_kuramoto_s0.pt",
+  "stats": {
+    "n": 31002,
+    "min": 0.47267818450927734,
+    "max": 16.578454971313477,
+    "mean": 2.8061304438908974,
+    "pct": {
+      "0.1": 0.5475595523715019,
+      "1": 0.7534730583429337,
+      "5": 0.9442710846662522,
+      "50": 1.8985445499420166
+    },
+    "frac_below_0.01": 0.0
+  },
+  "csv": "results/theory_degenerate_tokens/sva_osc_d2_hnorm.csv",
+  "pdf": "figures/diagnostics/theory_degenerate_tokens/sva_osc_d2_hnorm_hist.pdf",
+  "exp": "theory_degenerate_tokens",
+  "key": "sva_osc_d2"
+}

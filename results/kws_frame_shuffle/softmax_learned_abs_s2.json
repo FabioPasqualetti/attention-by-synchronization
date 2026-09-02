@@ -1,0 +1,24 @@
+{
+  "mech": "softmax",
+  "pe": "learned_abs",
+  "seed": 2,
+  "ckpt_regenerated": true,
+  "intact_acc": 0.899540912773427,
+  "shuffled_accs": [
+    0.6613556575749392,
+    0.6926816095058062,
+    0.7542533081285444
+  ],
+  "shuffled_mean": 0.7027635250697633,
+  "delta": 0.1967773877036637,
+  "perm_seeds": [
+    0,
+    1,
+    2
+  ],
+  "verified": true,
+  "regen_best_acc": 0.9006211180124224,
+  "e1_val_acc": 0.9006211180124224,
+  "exp": "kws_frame_shuffle",
+  "key": "softmax_learned_abs_s2"
+}

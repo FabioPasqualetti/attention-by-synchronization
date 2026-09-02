@@ -1,0 +1,24 @@
+{
+  "mech": "osc",
+  "pe": "sinusoidal",
+  "seed": 1,
+  "ckpt_regenerated": true,
+  "intact_acc": 0.9054820415879017,
+  "shuffled_accs": [
+    0.7204968944099379,
+    0.6659465298406697,
+    0.7448015122873346
+  ],
+  "shuffled_mean": 0.7104149788459807,
+  "delta": 0.19506706274192098,
+  "perm_seeds": [
+    0,
+    1,
+    2
+  ],
+  "verified": true,
+  "regen_best_acc": 0.9054820415879017,
+  "e1_val_acc": 0.9054820415879017,
+  "exp": "kws_frame_shuffle",
+  "key": "osc_sinusoidal_s1"
+}

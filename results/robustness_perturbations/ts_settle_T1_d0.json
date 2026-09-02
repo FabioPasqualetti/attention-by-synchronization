@@ -1,0 +1,10 @@
+{
+  "target": "ts",
+  "type": "settle",
+  "T": 1,
+  "draw": 0,
+  "subset": 100,
+  "ppl": 7.83891069416799,
+  "exp": "robustness_perturbations",
+  "key": "ts_settle_T1_d0"
+}

@@ -1,0 +1,24 @@
+{
+  "p": 2,
+  "seed": 1,
+  "val_acc": 0.9003510667026735,
+  "arch": {
+    "n_feats": 40,
+    "d_model": 32,
+    "n_heads": 2,
+    "n_layers": 1,
+    "n_classes": 10,
+    "T": 49,
+    "d_osc": 2,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "n_epochs": 30,
+    "grad_clip": 1.0
+  },
+  "wall_sec": 320.1,
+  "exp": "kws_readout_exponent",
+  "key": "p2_s1"
+}

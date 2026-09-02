@@ -1,0 +1,14 @@
+{
+  "dataset": "ts",
+  "tag": "d2",
+  "d_osc": 2,
+  "attn_type": "kuramoto",
+  "seed": 3,
+  "val_ppl": 10.916698119255235,
+  "wall_sec": 13159.5,
+  "gate_ref_ppl": 10.946906010621888,
+  "gate_rel_dev": 0.0027594912514404854,
+  "gate_ok": true,
+  "exp": "lm_dimension_scaling",
+  "key": "ts_d2_s3"
+}

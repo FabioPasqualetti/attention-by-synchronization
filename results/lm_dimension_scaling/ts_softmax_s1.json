@@ -1,0 +1,14 @@
+{
+  "dataset": "ts",
+  "tag": "softmax",
+  "d_osc": 0,
+  "attn_type": "softmax",
+  "seed": 1,
+  "val_ppl": 8.718658006990458,
+  "wall_sec": 10913.4,
+  "gate_ref_ppl": 8.701978771534025,
+  "gate_rel_dev": 0.0019167175529080972,
+  "gate_ok": true,
+  "exp": "lm_dimension_scaling",
+  "key": "ts_softmax_s1"
+}

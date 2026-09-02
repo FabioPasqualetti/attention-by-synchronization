@@ -1,0 +1,27 @@
+# Pinned to versions used for paper experiments (Python 3.9.6, macOS / CUDA A100)
+# Install: pip install -r requirements.txt
+
+# Core
+torch==2.8.0
+torchaudio==2.8.0
+soundfile==0.13.1
+numpy==2.0.2
+scipy==1.13.1
+
+# Visualisation
+matplotlib==3.9.4
+seaborn==0.13.2
+
+# Datasets (TinyStories, WikiText-2)
+datasets==4.5.0
+huggingface_hub==1.8.0
+
+# Utilities
+PyYAML==6.0.3
+tqdm==4.67.1
+packaging==25.0
+requests==2.32.5
+filelock==3.19.1
+fsspec==2025.10.0
+certifi==2026.1.4
+charset-normalizer==3.4.4

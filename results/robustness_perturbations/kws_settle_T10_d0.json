@@ -1,0 +1,10 @@
+{
+  "target": "kws",
+  "type": "settle",
+  "T": 10,
+  "draw": 0,
+  "subset": 512,
+  "acc": 0.90234375,
+  "exp": "robustness_perturbations",
+  "key": "kws_settle_T10_d0"
+}

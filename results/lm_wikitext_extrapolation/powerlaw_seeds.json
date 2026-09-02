@@ -1,0 +1,34 @@
+{
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "ppl_by_seed": {
+    "0": 101.96688289384616,
+    "1": 100.43662446153938,
+    "2": 101.43315312536312
+  },
+  "observed_ppl64_mean": 101.27888682691622,
+  "observed_ppl64_std": 0.6341773072461055,
+  "observed_delta64_mean": 1.6988868269162225,
+  "observed_delta64_std": 0.6341773072461055,
+  "deltas_by_seed": {
+    "0": 2.3868828938461633,
+    "1": 0.8566244615393828,
+    "2": 1.8531531253631215
+  },
+  "existing_ci95": [
+    1.970721339671638,
+    2.3575519061279393
+  ],
+  "predicted_delta64_boot_median": 2.168586271908808,
+  "alpha": 0.4650172912071072,
+  "softmax_ppl": 99.58,
+  "observed_mean_in_ci": false,
+  "all_seeds_above_ci": false,
+  "pm1std_band_overlaps_ci": true,
+  "conclusion": "(c) seeds straddle the CI \u2014 reported as mean\u00b1std vs CI without a categorical call.",
+  "exp": "lm_wikitext_extrapolation",
+  "key": "powerlaw_seeds"
+}

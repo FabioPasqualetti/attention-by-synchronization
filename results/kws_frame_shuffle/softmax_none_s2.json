@@ -1,0 +1,22 @@
+{
+  "mech": "softmax",
+  "pe": "none",
+  "seed": 2,
+  "ckpt_regenerated": false,
+  "intact_acc": 0.8684850121523089,
+  "shuffled_accs": [
+    0.8684850121523089,
+    0.8684850121523089,
+    0.8684850121523089
+  ],
+  "shuffled_mean": 0.8684850121523088,
+  "delta": 1.1102230246251565e-16,
+  "perm_seeds": [
+    0,
+    1,
+    2
+  ],
+  "verified": true,
+  "exp": "kws_frame_shuffle",
+  "key": "softmax_none_s2"
+}

@@ -1,0 +1,8 @@
+{
+  "val_ppl": 8.701978771534025,
+  "ref_ppl": 8.544,
+  "gate_ok": true,
+  "wall_sec": 11034.7,
+  "exp": "lm_dimensional_bottleneck",
+  "key": "softmax_train"
+}

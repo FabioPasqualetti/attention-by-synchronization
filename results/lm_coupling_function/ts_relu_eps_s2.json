@@ -1,0 +1,25 @@
+{
+  "task": "tinystories",
+  "sigma": "relu_eps",
+  "d_osc": 8,
+  "seed": 2,
+  "val_ppl": 9.919075016411375,
+  "arch": {
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 2,
+    "d_ff": 512,
+    "max_seq_len": 128,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "batch_size": 256,
+    "grad_clip": 1.0,
+    "n_epochs": 5
+  },
+  "wall_sec": 13534.0,
+  "exp": "lm_coupling_function",
+  "key": "ts_relu_eps_s2"
+}

@@ -1,0 +1,155 @@
+{
+  "config": "G",
+  "arch": {
+    "d_model": 32,
+    "n_heads": 1,
+    "n_layers": 1,
+    "d_ff": 64,
+    "d_osc": 2
+  },
+  "softmax": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "per_seed": {
+      "all": [
+        93.95,
+        96.45,
+        96.28,
+        78.35,
+        95.93
+      ],
+      "simple": [
+        92.86,
+        97.12,
+        96.04,
+        78.57,
+        95.92
+      ],
+      "hard": [
+        95.32,
+        94.19,
+        96.1,
+        78.14,
+        96.79
+      ]
+    },
+    "mean_all": 92.19,
+    "std_all": 7.8,
+    "mean_simple": 92.1,
+    "mean_hard": 92.11,
+    "std_hard": 7.87
+  },
+  "oscillator": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "per_seed": {
+      "all": [
+        97.78,
+        97.97,
+        97.65,
+        97.7,
+        97.97
+      ],
+      "simple": [
+        97.48,
+        97.6,
+        97.54,
+        97.48,
+        97.54
+      ],
+      "hard": [
+        97.14,
+        97.75,
+        97.4,
+        96.96,
+        97.66
+      ]
+    },
+    "mean_all": 97.81,
+    "std_all": 0.15,
+    "mean_simple": 97.53,
+    "mean_hard": 97.38,
+    "std_hard": 0.33,
+    "anchor_spread_deg": [
+      297.4,
+      334.2,
+      299.5,
+      353.8,
+      344.9
+    ],
+    "mean_spread_deg": 325.9
+  },
+  "frozen_wv": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "per_seed": {
+      "all": [
+        97.65,
+        97.92,
+        97.65
+      ],
+      "simple": [
+        97.54,
+        97.72,
+        97.54
+      ],
+      "hard": [
+        97.92,
+        96.96,
+        97.14
+      ]
+    },
+    "mean_all": 97.74,
+    "std_all": 0.16,
+    "mean_hard": 97.34,
+    "std_hard": 0.51
+  },
+  "attention_diagnostics_per_seed": {},
+  "attention_diagnostics_softmax": {
+    "correct": {
+      "a_vs_mean": 0.5888,
+      "a_vs_std": 0.1622,
+      "a_vd_mean": 0.2438,
+      "a_vd_std": 0.1498,
+      "gap_mean": 0.345
+    },
+    "wrong": {
+      "a_vs_mean": 0.2292,
+      "a_vs_std": 0.1396,
+      "a_vd_mean": 0.0644,
+      "a_vd_std": 0.0603,
+      "gap_mean": 0.1648
+    }
+  },
+  "attention_diagnostics_oscillator": {
+    "correct": {
+      "a_vs_mean": 0.201,
+      "a_vs_std": 0.1077,
+      "a_vd_mean": 0.0803,
+      "a_vd_std": 0.0407,
+      "gap_mean": 0.1207
+    },
+    "wrong": {
+      "a_vs_mean": 0.2569,
+      "a_vs_std": 0.087,
+      "a_vd_mean": 0.0681,
+      "a_vd_std": 0.0355,
+      "gap_mean": 0.1888
+    },
+    "coupling_variance_mean": 0.0133,
+    "coupling_variance_std": 0.0097
+  }
+}

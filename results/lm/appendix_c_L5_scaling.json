@@ -1,0 +1,42 @@
+{
+  "n4_d128_softmax": {
+    "val_ppl": 99.58,
+    "note": "from_stored_results"
+  },
+  "n4_d128_osc_d2": {
+    "val_ppl": 110.22,
+    "note": "from_stored_results_seed0"
+  },
+  "n8_d128_softmax": {
+    "val_ppl": 99.05504601998834,
+    "n_heads": 8,
+    "d_model": 128,
+    "d_ff": 512,
+    "attn_type": "softmax",
+    "seed": 0
+  },
+  "n8_d128_osc": {
+    "val_ppl": 111.82581119522195,
+    "n_heads": 8,
+    "d_model": 128,
+    "d_ff": 512,
+    "attn_type": "osc",
+    "seed": 0
+  },
+  "n8_d256_softmax": {
+    "val_ppl": 92.24416024712271,
+    "n_heads": 8,
+    "d_model": 256,
+    "d_ff": 1024,
+    "attn_type": "softmax",
+    "seed": 0
+  },
+  "n8_d256_osc": {
+    "val_ppl": 104.73499923762773,
+    "n_heads": 8,
+    "d_model": 256,
+    "d_ff": 1024,
+    "attn_type": "osc",
+    "seed": 0
+  }
+}

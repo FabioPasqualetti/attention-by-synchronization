@@ -1,0 +1,9 @@
+{
+  "d_osc": 0,
+  "attn_type": "softmax",
+  "seed": 1,
+  "val_ppl": 99.03103802925483,
+  "wall_sec": 285.7,
+  "exp": "lm_wikitext_extrapolation",
+  "key": "train_wt2_softmax_s1"
+}

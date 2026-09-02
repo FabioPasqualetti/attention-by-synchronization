@@ -1,0 +1,24 @@
+{
+  "mech": "osc",
+  "pe": "learned_abs",
+  "seed": 1,
+  "ckpt_regenerated": true,
+  "intact_acc": 0.903051579800162,
+  "shuffled_accs": [
+    0.6953821226032946,
+    0.6916014042668107,
+    0.7547934107480422
+  ],
+  "shuffled_mean": 0.7139256458727158,
+  "delta": 0.18912593392744625,
+  "perm_seeds": [
+    0,
+    1,
+    2
+  ],
+  "verified": true,
+  "regen_best_acc": 0.9044018363489063,
+  "e1_val_acc": 0.9044018363489063,
+  "exp": "kws_frame_shuffle",
+  "key": "osc_learned_abs_s1"
+}

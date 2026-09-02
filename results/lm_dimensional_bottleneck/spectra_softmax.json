@@ -1,0 +1,25 @@
+{
+  "name": "softmax",
+  "mechanism": "softmax",
+  "d_osc": null,
+  "bound_rank": null,
+  "effective_rank_causal_attn": {
+    "mean": 48.176582854706794,
+    "std": 28.27131583572009,
+    "n": 1024,
+    "min": 3.2240238189697266,
+    "max": 103.08794403076172
+  },
+  "participation_ratio": {
+    "mean": 37.54382195346989,
+    "std": 25.65172504492401,
+    "n": 1024,
+    "min": 2.6235904693603516,
+    "max": 95.25025939941406
+  },
+  "effective_rank_unmasked_similarity": null,
+  "n_val_seqs": 128,
+  "ckpt": "results/lm_dimensional_bottleneck/ckpt/ts_softmax_s0_ep5.pt",
+  "exp": "lm_dimensional_bottleneck",
+  "key": "spectra_softmax"
+}

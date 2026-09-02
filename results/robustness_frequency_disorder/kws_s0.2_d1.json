@@ -1,0 +1,8 @@
+{
+  "target": "kws",
+  "s": 0.2,
+  "draw": 1,
+  "acc": 0.90234375,
+  "exp": "robustness_frequency_disorder",
+  "key": "kws_s0.2_d1"
+}

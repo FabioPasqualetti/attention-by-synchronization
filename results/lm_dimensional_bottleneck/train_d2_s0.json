@@ -1,0 +1,10 @@
+{
+  "d_osc": 2,
+  "seed": 0,
+  "val_ppl": 11.014004517827942,
+  "ref_ppl": 10.947,
+  "gate_ok": true,
+  "wall_sec": 13384.8,
+  "exp": "lm_dimensional_bottleneck",
+  "key": "train_d2_s0"
+}

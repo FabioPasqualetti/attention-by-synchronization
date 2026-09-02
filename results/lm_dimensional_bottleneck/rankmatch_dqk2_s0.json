@@ -1,0 +1,13 @@
+{
+  "d_qk": 2,
+  "score_rank_ceiling": 2,
+  "seed": 0,
+  "val_ppl": 9.420964035448415,
+  "n_heads": 4,
+  "d_v_per_head": 32,
+  "osc_d2_ppl": 10.95,
+  "full_softmax_ppl": 8.7,
+  "wall_sec": 10685.6,
+  "exp": "lm_dimensional_bottleneck",
+  "key": "rankmatch_dqk2_s0"
+}

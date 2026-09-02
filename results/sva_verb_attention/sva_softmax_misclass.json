@@ -1,0 +1,314 @@
+{
+  "seed_hard_acc": {
+    "0": 0.9532,
+    "1": 0.9419,
+    "2": 0.961,
+    "3": 0.7814,
+    "4": 0.9679
+  },
+  "catastrophic_seed": 3,
+  "Q1": {
+    "n_wrong_pooled": 455,
+    "n_num_invariant_wrong": 117,
+    "frac_num_invariant_wrong": 0.257,
+    "n_num_invariant_correct": 153,
+    "frac_num_invariant_correct": 0.029,
+    "top_subject_words": {
+      "fish": {
+        "n_errors": 64,
+        "n_total": 150,
+        "rate": 0.427,
+        "num_invar": true
+      },
+      "deer": {
+        "n_errors": 53,
+        "n_total": 120,
+        "rate": 0.442,
+        "num_invar": true
+      },
+      "cups": {
+        "n_errors": 20,
+        "n_total": 70,
+        "rate": 0.286,
+        "num_invar": false
+      },
+      "goats": {
+        "n_errors": 17,
+        "n_total": 85,
+        "rate": 0.2,
+        "num_invar": false
+      },
+      "doors": {
+        "n_errors": 17,
+        "n_total": 80,
+        "rate": 0.212,
+        "num_invar": false
+      },
+      "fly": {
+        "n_errors": 14,
+        "n_total": 70,
+        "rate": 0.2,
+        "num_invar": false
+      },
+      "stars": {
+        "n_errors": 11,
+        "n_total": 55,
+        "rate": 0.2,
+        "num_invar": false
+      },
+      "owls": {
+        "n_errors": 11,
+        "n_total": 55,
+        "rate": 0.2,
+        "num_invar": false
+      },
+      "cats": {
+        "n_errors": 11,
+        "n_total": 60,
+        "rate": 0.183,
+        "num_invar": false
+      },
+      "buses": {
+        "n_errors": 11,
+        "n_total": 70,
+        "rate": 0.157,
+        "num_invar": false
+      },
+      "frog": {
+        "n_errors": 11,
+        "n_total": 105,
+        "rate": 0.105,
+        "num_invar": false
+      },
+      "books": {
+        "n_errors": 10,
+        "n_total": 55,
+        "rate": 0.182,
+        "num_invar": false
+      },
+      "dogs": {
+        "n_errors": 10,
+        "n_total": 75,
+        "rate": 0.133,
+        "num_invar": false
+      },
+      "tables": {
+        "n_errors": 9,
+        "n_total": 55,
+        "rate": 0.164,
+        "num_invar": false
+      },
+      "owl": {
+        "n_errors": 9,
+        "n_total": 45,
+        "rate": 0.2,
+        "num_invar": false
+      }
+    }
+  },
+  "Q2": {
+    "catastrophic_seed": {
+      "seed": 3,
+      "hard_acc": 0.7814,
+      "n_wrong": 252,
+      "n_hard": 1153,
+      "n_unique_wrong_sentences": 252,
+      "frac_unique_wrong": 0.219,
+      "frac_num_invariant_wrong": 0.123,
+      "top_subject_words": {
+        "fish": 17,
+        "deer": 14,
+        "buses": 11,
+        "frog": 11,
+        "dogs": 10,
+        "cups": 10,
+        "hats": 9,
+        "doors": 9,
+        "goats": 9,
+        "crab": 8
+      },
+      "gap_stats_wrong": {
+        "n": 252,
+        "mean": -0.0842,
+        "std": 0.3204,
+        "n_negative": 76,
+        "n_ge05": 28
+      }
+    },
+    "good_seeds": {
+      "seeds": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "n_wrong_pooled": 203,
+      "mean_wrong_per_seed": 50.8,
+      "frac_num_invariant_wrong": 0.424,
+      "top_subject_words": {
+        "fish": 47,
+        "deer": 39,
+        "fly": 14,
+        "cups": 10,
+        "owl": 9,
+        "stars": 8,
+        "goats": 8,
+        "doors": 8,
+        "flies": 7,
+        "wolf": 7
+      },
+      "pairwise_jaccard_wrong": {
+        "seed0_seed1": 0.08,
+        "seed0_seed2": 0.125,
+        "seed0_seed4": 0.071,
+        "seed1_seed2": 0.217,
+        "seed1_seed4": 0.083,
+        "seed2_seed4": 0.139
+      },
+      "gap_stats_wrong": {
+        "n": 203,
+        "mean": 0.2312,
+        "std": 0.4073,
+        "n_negative": 49,
+        "n_ge05": 73
+      }
+    }
+  },
+  "Q3": {
+    "gap_threshold": 0.1,
+    "catastrophic_seed_wrong": {
+      "n": 252,
+      "gap_stats": {
+        "n": 252,
+        "mean": -0.0842,
+        "std": 0.3204,
+        "n_negative": 76,
+        "n_ge05": 28
+      },
+      "logit_stats": {
+        "n": 252,
+        "abs_mean": 0.5303,
+        "abs_std": 0.2102,
+        "n_close": 139,
+        "n_conf": 7
+      },
+      "n_collapsed_attn": 229,
+      "n_maintained_attn": 23,
+      "frac_collapsed": 0.909
+    },
+    "good_seeds_wrong": {
+      "n": 203,
+      "gap_stats": {
+        "n": 203,
+        "mean": 0.2312,
+        "std": 0.4073,
+        "n_negative": 49,
+        "n_ge05": 73
+      },
+      "logit_stats": {
+        "n": 203,
+        "abs_mean": 1.628,
+        "abs_std": 1.3004,
+        "n_close": 72,
+        "n_conf": 113
+      },
+      "n_collapsed_attn": 130,
+      "n_maintained_attn": 73,
+      "frac_collapsed": 0.64
+    },
+    "all_wrong_pooled": {
+      "n": 455,
+      "gap_stats": {
+        "n": 455,
+        "mean": 0.0565,
+        "std": 0.394,
+        "n_negative": 125,
+        "n_ge05": 101
+      },
+      "logit_stats": {
+        "n": 455,
+        "abs_mean": 1.02,
+        "abs_std": 1.0369,
+        "n_close": 211,
+        "n_conf": 120
+      },
+      "n_collapsed_attn": 359,
+      "n_maintained_attn": 96,
+      "frac_collapsed": 0.789
+    },
+    "per_seed": {
+      "0": {
+        "n_wrong": 54,
+        "n_correct": 1099,
+        "hard_acc": 0.9532,
+        "gap_wrong_mean": 0.1347,
+        "gap_correct_mean": 0.1392,
+        "abs_logit_wrong_mean": 2.0143,
+        "abs_logit_correct_mean": 4.0699,
+        "frac_collapsed_attn": 0.778,
+        "frac_close_logit": 0.148
+      },
+      "1": {
+        "n_wrong": 67,
+        "n_correct": 1086,
+        "hard_acc": 0.9419,
+        "gap_wrong_mean": 0.2758,
+        "gap_correct_mean": 0.8466,
+        "abs_logit_wrong_mean": 0.5701,
+        "abs_logit_correct_mean": 7.4067,
+        "frac_collapsed_attn": 0.463,
+        "frac_close_logit": 0.597
+      },
+      "2": {
+        "n_wrong": 45,
+        "n_correct": 1108,
+        "hard_acc": 0.961,
+        "gap_wrong_mean": 0.3473,
+        "gap_correct_mean": 0.1389,
+        "abs_logit_wrong_mean": 2.1718,
+        "abs_logit_correct_mean": 4.4757,
+        "frac_collapsed_attn": 0.644,
+        "frac_close_logit": 0.356
+      },
+      "3": {
+        "n_wrong": 252,
+        "n_correct": 901,
+        "hard_acc": 0.7814,
+        "gap_wrong_mean": -0.0842,
+        "gap_correct_mean": 0.4406,
+        "abs_logit_wrong_mean": 0.5303,
+        "abs_logit_correct_mean": 3.8615,
+        "frac_collapsed_attn": 0.909,
+        "frac_close_logit": 0.552
+      },
+      "4": {
+        "n_wrong": 37,
+        "n_correct": 1116,
+        "hard_acc": 0.9679,
+        "gap_wrong_mean": 0.1504,
+        "gap_correct_mean": 0.1596,
+        "abs_logit_wrong_mean": 2.3184,
+        "abs_logit_correct_mean": 4.1303,
+        "frac_collapsed_attn": 0.757,
+        "frac_close_logit": 0.216
+      }
+    }
+  },
+  "table3_mean_attn": {
+    "estimator": "unweighted mean of per-seed means",
+    "correct": {
+      "a_vs": 0.5888,
+      "a_vd": 0.2438,
+      "gap": 0.345,
+      "a_vs_between_seed_std": 0.1622,
+      "a_vd_between_seed_std": 0.1498
+    },
+    "wrong": {
+      "a_vs": 0.2292,
+      "a_vd": 0.0644,
+      "gap": 0.1648,
+      "a_vs_between_seed_std": 0.1396,
+      "a_vd_between_seed_std": 0.0603
+    }
+  }
+}

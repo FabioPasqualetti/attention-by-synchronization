@@ -1,0 +1,30 @@
+{
+  "model": "TS2_d2",
+  "d_osc": 2,
+  "n_rand_init": 5,
+  "n_total": 57900,
+  "frac_by_tmax": {
+    "30": 0.8429360967184801,
+    "100": 0.9134369602763385,
+    "500": 0.9602763385146805,
+    "1000": 0.9725561312607944,
+    "5000": 0.9875302245250431
+  },
+  "angle_breakdown_failures": {
+    "lt_1deg": 69,
+    "lt_5deg": 335,
+    "lt_10deg": 604,
+    "lt_30deg": 1777,
+    "lt_90deg": 4950
+  },
+  "n_still_failing_after_tmax5000": 722,
+  "still_failing_angle_stats": {
+    "min_deg": 0.008485153525228554,
+    "mean_deg": 81.00038126953717
+  },
+  "n_oscillators": 11580,
+  "n_token_positions": 2895,
+  "n_seqs_configured": 20,
+  "n_seqs_processed": 32,
+  "field_note": "n_oscillators was stored as n_valid_tok: it counts valid (position, head) pairs, 2,895 positions x 4 heads, not token positions. n_seqs was the configured constant; the loop compares it against a count that advances a batch at a time (batch 16), so 32 sequences are processed."
+}

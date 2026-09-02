@@ -1,0 +1,8 @@
+{
+  "target": "ts",
+  "s": 0.05,
+  "draw": 4,
+  "ppl": 7.639682860770925,
+  "exp": "robustness_frequency_disorder",
+  "key": "ts_s0.05_d4"
+}

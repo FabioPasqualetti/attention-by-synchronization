@@ -1,0 +1,19 @@
+{
+  "d_model": 128,
+  "n_heads": 4,
+  "n_layers": 2,
+  "d_ff": 512,
+  "max_seq_len": 50,
+  "dropout": 0.1,
+  "lr": 0.0005,
+  "weight_decay": 0.0001,
+  "batch_size": 64,
+  "grad_clip": 1.0,
+  "n_epochs": 30,
+  "optimizer": "AdamW",
+  "cosine_lr": true,
+  "vocab": "top-10K",
+  "source": "training/train_wikitext.py",
+  "exp": "lm_wikitext_extrapolation",
+  "key": "config_used"
+}

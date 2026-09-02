@@ -1,0 +1,26 @@
+{
+  "task": "kws",
+  "sigma": "relu_eps",
+  "seed": 1,
+  "val_acc": 0.8865784499054821,
+  "wall_sec": 296.8,
+  "arch": {
+    "n_feats": 40,
+    "d_model": 32,
+    "n_heads": 2,
+    "n_layers": 1,
+    "n_classes": 10,
+    "T": 49,
+    "d_osc": 2,
+    "p": 1,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "n_epochs": 30,
+    "grad_clip": 1.0
+  },
+  "exp": "lm_coupling_function",
+  "key": "kws_relu_eps_s1"
+}

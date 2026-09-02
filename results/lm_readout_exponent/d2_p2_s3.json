@@ -1,0 +1,24 @@
+{
+  "d_osc": 2,
+  "p": 2,
+  "seed": 3,
+  "val_ppl": 10.402966458595815,
+  "arch": {
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 2,
+    "d_ff": 512,
+    "max_seq_len": 128,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "batch_size": 256,
+    "grad_clip": 1.0,
+    "n_epochs": 5
+  },
+  "wall_sec": 13636.6,
+  "exp": "lm_readout_exponent",
+  "key": "d2_p2_s3"
+}

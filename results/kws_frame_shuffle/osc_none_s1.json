@@ -1,0 +1,22 @@
+{
+  "mech": "osc",
+  "pe": "none",
+  "seed": 1,
+  "ckpt_regenerated": false,
+  "intact_acc": 0.884958142046989,
+  "shuffled_accs": [
+    0.685660275452336,
+    0.7485822306238186,
+    0.7653254118282473
+  ],
+  "shuffled_mean": 0.7331893059681339,
+  "delta": 0.15176883607885505,
+  "perm_seeds": [
+    0,
+    1,
+    2
+  ],
+  "verified": true,
+  "exp": "kws_frame_shuffle",
+  "key": "osc_none_s1"
+}

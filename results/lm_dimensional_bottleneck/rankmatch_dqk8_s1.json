@@ -1,0 +1,18 @@
+{
+  "d_qk": 8,
+  "score_rank_ceiling": 8,
+  "seed": 1,
+  "val_ppl": 8.926750480689797,
+  "n_heads": 4,
+  "d_v_per_head": 32,
+  "osc_d2_ppl": 10.95,
+  "full_softmax_ppl": 8.7,
+  "bracket": [
+    8.6715,
+    9.418
+  ],
+  "bracket_ok": true,
+  "wall_sec": 10772.0,
+  "exp": "lm_dimensional_bottleneck",
+  "key": "rankmatch_dqk8_s1"
+}

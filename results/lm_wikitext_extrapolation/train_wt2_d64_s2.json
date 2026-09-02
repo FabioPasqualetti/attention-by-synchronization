@@ -1,0 +1,8 @@
+{
+  "d_osc": 64,
+  "seed": 2,
+  "val_ppl": 101.43315312536312,
+  "wall_sec": 351.0,
+  "exp": "lm_wikitext_extrapolation",
+  "key": "train_wt2_d64_s2"
+}

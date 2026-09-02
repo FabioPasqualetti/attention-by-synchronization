@@ -1,0 +1,31 @@
+{
+  "name": "osc_d16",
+  "mechanism": "oscillator",
+  "d_osc": 16,
+  "bound_rank": 17,
+  "effective_rank_causal_attn": {
+    "mean": 40.97407869249582,
+    "std": 24.42542604738621,
+    "n": 1024,
+    "min": 3.4333672523498535,
+    "max": 88.021240234375
+  },
+  "participation_ratio": {
+    "mean": 24.612126448191702,
+    "std": 15.772945096883104,
+    "n": 1024,
+    "min": 2.572305679321289,
+    "max": 59.92622375488281
+  },
+  "effective_rank_unmasked_similarity": {
+    "mean": 9.5859429766424,
+    "std": 3.9737411837041567,
+    "n": 1024,
+    "min": 1.909855604171753,
+    "max": 15.754812240600586
+  },
+  "n_val_seqs": 128,
+  "ckpt": "results/lm_5pt_runs/checkpoints/ts_dosc16_seed0/ts_d16_s0_ep5.pt",
+  "exp": "lm_dimensional_bottleneck",
+  "key": "spectra_osc_d16"
+}

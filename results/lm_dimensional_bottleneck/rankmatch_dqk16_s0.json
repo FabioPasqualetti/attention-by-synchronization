@@ -1,0 +1,18 @@
+{
+  "d_qk": 16,
+  "score_rank_ceiling": 16,
+  "seed": 0,
+  "val_ppl": 8.832378508856523,
+  "n_heads": 4,
+  "d_v_per_head": 32,
+  "osc_d2_ppl": 10.95,
+  "full_softmax_ppl": 8.7,
+  "bracket": [
+    8.6715,
+    9.418
+  ],
+  "bracket_ok": true,
+  "wall_sec": 10723.3,
+  "exp": "lm_dimensional_bottleneck",
+  "key": "rankmatch_dqk16_s0"
+}

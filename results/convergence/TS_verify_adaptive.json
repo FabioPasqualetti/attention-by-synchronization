@@ -1,0 +1,89 @@
+{
+  "TS2_d2": {
+    "d_osc": 2,
+    "uniqueness": {
+      "mean_error": 0.11029983526077025,
+      "max_error": 1.9999999436993292,
+      "frac_lt_001": 0.843126079447323,
+      "antipodal_rate": 0.11704663212435233,
+      "mean_nfev_per_token": 632.336787564745,
+      "frac_failed": 0.0,
+      "mean_nfev_per_solve": 3161.683937823725,
+      "mean_nfev_per_token_status": "superseded",
+      "mean_nfev_per_token_note": "mean_nfev_per_token is MIS-SCALED and is not what the paper prints. Its producer divided by (n_total * n_rand_init) where n_total already counted each initialization, so it is the per-solve mean divided by 5. Table 6 prints mean_nfev_per_solve. Kept unchanged because this producer is unseeded and regenerating would move every value in the file.",
+      "n_oscillators": 11580,
+      "n_token_positions": 2895,
+      "n_solves": 57900
+    },
+    "init_methods": {
+      "random": {
+        "mean": 0.10928899731132644,
+        "frac_lt_001": 0.8442141623488774,
+        "mean_nfev_per_solve": 3161.342487046632
+      },
+      "sequential": {
+        "mean": 0.023731548650177493,
+        "frac_lt_001": 0.8813471502590674,
+        "mean_nfev_per_solve": 3150.2264248704664
+      }
+    }
+  },
+  "TS3_d8": {
+    "d_osc": 8,
+    "uniqueness": {
+      "mean_error": 0.023897222867692025,
+      "max_error": 1.9000111559602593,
+      "frac_lt_001": 0.9487737478411054,
+      "antipodal_rate": 0.03393782383419689,
+      "mean_nfev_per_token": 485.1637098445428,
+      "frac_failed": 0.0,
+      "mean_nfev_per_solve": 2425.818549222714,
+      "mean_nfev_per_token_status": "superseded",
+      "mean_nfev_per_token_note": "mean_nfev_per_token is MIS-SCALED and is not what the paper prints. Its producer divided by (n_total * n_rand_init) where n_total already counted each initialization, so it is the per-solve mean divided by 5. Table 6 prints mean_nfev_per_solve. Kept unchanged because this producer is unseeded and regenerating would move every value in the file.",
+      "n_oscillators": 11580,
+      "n_token_positions": 2895,
+      "n_solves": 57900
+    },
+    "init_methods": {
+      "random": {
+        "mean": 0.023930783768711335,
+        "frac_lt_001": 0.9488773747841105,
+        "mean_nfev_per_solve": 2425.878756476684
+      },
+      "sequential": {
+        "mean": 0.009541462783337581,
+        "frac_lt_001": 0.9597582037996546,
+        "mean_nfev_per_solve": 2421.032642487047
+      }
+    }
+  },
+  "TS4_d32": {
+    "d_osc": 32,
+    "uniqueness": {
+      "mean_error": 0.003914203031358858,
+      "max_error": 1.5220345442754166,
+      "frac_lt_001": 0.9825215889464595,
+      "antipodal_rate": 0.008134715025906736,
+      "mean_nfev_per_token": 526.3178031087901,
+      "frac_failed": 0.0,
+      "mean_nfev_per_solve": 2631.5890155439506,
+      "mean_nfev_per_token_status": "superseded",
+      "mean_nfev_per_token_note": "mean_nfev_per_token is MIS-SCALED and is not what the paper prints. Its producer divided by (n_total * n_rand_init) where n_total already counted each initialization, so it is the per-solve mean divided by 5. Table 6 prints mean_nfev_per_solve. Kept unchanged because this producer is unseeded and regenerating would move every value in the file.",
+      "n_oscillators": 11580,
+      "n_token_positions": 2895,
+      "n_solves": 57900
+    },
+    "init_methods": {
+      "random": {
+        "mean": 0.003873472593103379,
+        "frac_lt_001": 0.9826424870466322,
+        "mean_nfev_per_solve": 2631.521243523316
+      },
+      "sequential": {
+        "mean": 0.0014224230633240816,
+        "frac_lt_001": 0.9876511226252159,
+        "mean_nfev_per_solve": 2628.660621761658
+      }
+    }
+  }
+}

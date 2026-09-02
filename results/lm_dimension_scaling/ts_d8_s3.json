@@ -1,0 +1,14 @@
+{
+  "dataset": "ts",
+  "tag": "d8",
+  "d_osc": 8,
+  "attn_type": "kuramoto",
+  "seed": 3,
+  "val_ppl": 9.889648624838909,
+  "wall_sec": 13422.6,
+  "gate_ref_ppl": 9.762771473496107,
+  "gate_rel_dev": 0.012996017748366518,
+  "gate_ok": true,
+  "exp": "lm_dimension_scaling",
+  "key": "ts_d8_s3"
+}

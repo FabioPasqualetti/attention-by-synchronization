@@ -1,0 +1,10 @@
+{
+  "d_qk": 16,
+  "seed": 2,
+  "val_ppl": 8.786037338197593,
+  "n_heads": 4,
+  "d_v_per_head": 32,
+  "config": "identical to seeds 0,1 (only seed differs)",
+  "wall_sec": 10763.2,
+  "key": "rankmatch_dqk16_s2"
+}

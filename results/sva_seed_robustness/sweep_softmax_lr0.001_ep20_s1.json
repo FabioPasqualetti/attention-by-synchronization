@@ -1,0 +1,23 @@
+{
+  "attn_type": "softmax",
+  "seed": 1,
+  "lr": 0.001,
+  "n_epochs": 20,
+  "val_acc": {
+    "all": 73.325,
+    "simple": 73.229,
+    "hard": 71.379
+  },
+  "failure": true,
+  "wall_sec": 73.9,
+  "arch": {
+    "d_model": 32,
+    "n_heads": 1,
+    "n_layers": 1,
+    "d_ff": 64,
+    "d_osc": 2,
+    "max_seq_len": 50
+  },
+  "exp": "sva_seed_robustness",
+  "key": "sweep_softmax_lr0.001_ep20_s1"
+}

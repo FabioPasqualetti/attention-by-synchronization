@@ -1,0 +1,9 @@
+{
+  "target": "kws",
+  "type": "state",
+  "scale": 0.2,
+  "draw": 3,
+  "acc": 0.8898190656224683,
+  "exp": "robustness_perturbations",
+  "key": "kws_state_s0.2_d3"
+}

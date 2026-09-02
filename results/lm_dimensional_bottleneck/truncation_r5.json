@@ -1,0 +1,13 @@
+{
+  "rank": 5,
+  "ppl": 31.002552315817432,
+  "matched_d_osc": 4,
+  "osc_ppl_at_d": 10.27565240168503,
+  "exp": "lm_dimensional_bottleneck",
+  "key": "truncation_r5",
+  "eval": "val_subset_128",
+  "n_val_seqs": 128,
+  "status": "superseded",
+  "superseded_by": "truncation_full_val_r5.json",
+  "note": "SUPERSEDED: 128-sequence validation subset. The published series is truncation_full_val_r*.json (full 47,385-sequence validation set), which is what figures/rank_truncation.py reads and what the paper reports. Retained for provenance only -- do not compare these PPLs with the oscillator or rank-match series, which are evaluated on the full set. See this directory's README.md."
+}

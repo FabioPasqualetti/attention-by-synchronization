@@ -1,0 +1,32 @@
+{
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "ppl_by_seed": {
+    "0": 8.937896322556984,
+    "1": 8.914925705151925,
+    "2": 8.931271057516684
+  },
+  "observed_ppl64_mean": 8.928031028408531,
+  "observed_ppl64_std": 0.011823098471156507,
+  "observed_delta64_mean": 0.38403102840853026,
+  "observed_delta64_std": 0.011823098471156507,
+  "predicted_delta64": {
+    "point": 0.3914886302099024,
+    "boot_median": 0.39190755114214504,
+    "ci95": [
+      0.37336765789680193,
+      0.40809783359613033
+    ],
+    "n_boot": 2000
+  },
+  "alpha": 0.5304151170902898,
+  "C": 3.5542200787040805,
+  "r2": 0.9983055604615388,
+  "observed_mean_in_ci": true,
+  "observed_pm1std_band_overlaps_ci": true,
+  "exp": "lm_tinystories_extrapolation",
+  "key": "powerlaw_seeds"
+}

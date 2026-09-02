@@ -1,0 +1,11 @@
+{
+  "target": "sva",
+  "type": "settle",
+  "T": 2,
+  "seed": 3,
+  "draw": 1,
+  "acc": 0.977,
+  "n_val": 4000,
+  "exp": "robustness_perturbations",
+  "key": "sva_settle_T2_s3_d1"
+}

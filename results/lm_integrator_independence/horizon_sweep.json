@@ -1,0 +1,143 @@
+{
+  "description": "Horizon sweep: angle (deg) of Euler-integrated states to the analytic fixed point, and Euler-vs-RK45 angle, vs integration time T. Same tokens tracked across T (worst-8 chosen at T=30).",
+  "median_floor_note": "median angles ~0.02 deg (float32) are the arccos resolution floor near cos=1 (~sqrt(2*eps_f32)); float64 recompute (median_deg_float64) shows the true residual. Not a physical quantity.",
+  "cases": {
+    "TinyStories": {
+      "d_osc": 8,
+      "n_valid_tokens": 3268,
+      "sweep": [
+        {
+          "T": 30,
+          "median_deg": 0.0198,
+          "median_deg_float64": 0.015479,
+          "max_deg": 120.7385,
+          "max_token_idx": 2322,
+          "worst8_at_T30_max_deg": 120.7385,
+          "euler_vs_rk45_max_deg": 0.0198,
+          "euler_vs_rk45_argmax_idx": 2599
+        },
+        {
+          "T": 60,
+          "median_deg": 0.0198,
+          "median_deg_float64": 0.014998,
+          "max_deg": 116.168,
+          "max_token_idx": 2322,
+          "worst8_at_T30_max_deg": 116.168,
+          "euler_vs_rk45_max_deg": 0.028,
+          "euler_vs_rk45_argmax_idx": 3456
+        },
+        {
+          "T": 120,
+          "median_deg": 0.0198,
+          "median_deg_float64": 0.014927,
+          "max_deg": 106.4943,
+          "max_token_idx": 2322,
+          "worst8_at_T30_max_deg": 106.4943,
+          "euler_vs_rk45_max_deg": 0.0,
+          "euler_vs_rk45_argmax_idx": 2322
+        },
+        {
+          "T": 300,
+          "median_deg": 0.0198,
+          "median_deg_float64": 0.014756,
+          "max_deg": 91.0134,
+          "max_token_idx": 3134,
+          "worst8_at_T30_max_deg": 91.0134,
+          "euler_vs_rk45_max_deg": 0.0,
+          "euler_vs_rk45_argmax_idx": 2322
+        },
+        {
+          "T": 1000,
+          "median_deg": 0.0198,
+          "median_deg_float64": 0.014607,
+          "max_deg": 56.733,
+          "max_token_idx": 3134,
+          "worst8_at_T30_max_deg": 56.733,
+          "euler_vs_rk45_max_deg": 0.0,
+          "euler_vs_rk45_argmax_idx": 2322
+        },
+        {
+          "T": 3000,
+          "median_deg": 0.0198,
+          "median_deg_float64": 0.014598,
+          "max_deg": 44.4811,
+          "max_token_idx": 2429,
+          "worst8_at_T30_max_deg": 10.0856,
+          "euler_vs_rk45_max_deg": 0.0,
+          "euler_vs_rk45_argmax_idx": 2322
+        }
+      ]
+    },
+    "KWS": {
+      "d_osc": 2,
+      "n_valid_tokens": 6272,
+      "sweep": [
+        {
+          "T": 30,
+          "median_deg": 0.0,
+          "median_deg_float64": 0.0,
+          "max_deg": 148.8256,
+          "max_token_idx": 120,
+          "worst8_at_T30_max_deg": 148.8256,
+          "euler_vs_rk45_max_deg": 0.7621,
+          "euler_vs_rk45_argmax_idx": 2264
+        },
+        {
+          "T": 60,
+          "median_deg": 0.0,
+          "median_deg_float64": 0.0,
+          "max_deg": 145.0601,
+          "max_token_idx": 2740,
+          "worst8_at_T30_max_deg": 145.0601,
+          "euler_vs_rk45_max_deg": 0.1725,
+          "euler_vs_rk45_argmax_idx": 120
+        },
+        {
+          "T": 120,
+          "median_deg": 0.0,
+          "median_deg_float64": 0.0,
+          "max_deg": 141.7781,
+          "max_token_idx": 2740,
+          "worst8_at_T30_max_deg": 141.7781,
+          "euler_vs_rk45_max_deg": 0.0198,
+          "euler_vs_rk45_argmax_idx": 1889
+        },
+        {
+          "T": 300,
+          "median_deg": 0.0,
+          "median_deg_float64": 0.0,
+          "max_deg": 130.3705,
+          "max_token_idx": 2740,
+          "worst8_at_T30_max_deg": 130.3705,
+          "euler_vs_rk45_max_deg": 0.0,
+          "euler_vs_rk45_argmax_idx": 120
+        },
+        {
+          "T": 1000,
+          "median_deg": 0.0,
+          "median_deg_float64": 0.0,
+          "max_deg": 70.3099,
+          "max_token_idx": 2740,
+          "worst8_at_T30_max_deg": 70.3099,
+          "euler_vs_rk45_max_deg": 0.0,
+          "euler_vs_rk45_argmax_idx": 120
+        },
+        {
+          "T": 3000,
+          "median_deg": 0.0,
+          "median_deg_float64": 0.0,
+          "max_deg": 22.0695,
+          "max_token_idx": 2078,
+          "worst8_at_T30_max_deg": 3.2697,
+          "euler_vs_rk45_max_deg": 0.0198,
+          "euler_vs_rk45_argmax_idx": 2740
+        }
+      ]
+    }
+  },
+  "notes": {
+    "finite_horizon_slow_escape": "Some tokens (e.g. TinyStories token 2322: 120.7deg at T=30; KWS token 2740) initialize near the unstable/antipodal equilibrium and have not reached the analytic fixed point at the inference horizon T=30. The max angle to the analytic point decays monotonically with T (see horizon_sweep.json: TS 120.7->44.5deg, KWS 148.8->22.1deg out to T=3000) and BOTH integrators track it. Finite-horizon effect, not a discrepancy; the analytic fixed point remains the attractor.",
+    "euler_stiffness_single_token": "One token (TinyStories token 2429, ||h||=1575.1, generic init 85.9deg to analytic / 94.1deg to antipode) is a fixed-step-Euler failure, NOT finite-horizon and NOT a theory effect: RK45 converges to the analytic fixed point exactly (0.0000deg at T=30, 300, 3000) while forward Euler (dt=0.05) is unstable at this large ||h|| and stays 44.48deg away at every T. Adaptive RK45 and the analytic fixed point agree; only fixed-step Euler fails. This is why the paper computes the fixed point analytically rather than by fixed-step integration.",
+    "median_note": "Median angles ~0.02deg (float32) are the arccos resolution floor near cos=1; float64 recompute gives the true residual (see median_deg_float64 in horizon_sweep.json)."
+  }
+}

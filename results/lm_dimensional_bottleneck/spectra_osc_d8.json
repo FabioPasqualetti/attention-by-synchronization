@@ -1,0 +1,31 @@
+{
+  "name": "osc_d8",
+  "mechanism": "oscillator",
+  "d_osc": 8,
+  "bound_rank": 9,
+  "effective_rank_causal_attn": {
+    "mean": 39.27023822721094,
+    "std": 23.062095331735456,
+    "n": 1024,
+    "min": 3.56835675239563,
+    "max": 79.75243377685547
+  },
+  "participation_ratio": {
+    "mean": 23.147036159643903,
+    "std": 13.881357854613938,
+    "n": 1024,
+    "min": 2.6215336322784424,
+    "max": 51.618568420410156
+  },
+  "effective_rank_unmasked_similarity": {
+    "mean": 5.786274594720453,
+    "std": 1.7387080209752284,
+    "n": 1024,
+    "min": 1.6119049787521362,
+    "max": 8.672289848327637
+  },
+  "n_val_seqs": 128,
+  "ckpt": "results/lm_coupling_function/ckpt/ts_softplus_s0.pt",
+  "exp": "lm_dimensional_bottleneck",
+  "key": "spectra_osc_d8"
+}

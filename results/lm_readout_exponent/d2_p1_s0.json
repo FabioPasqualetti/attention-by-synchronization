@@ -1,0 +1,28 @@
+{
+  "d_osc": 2,
+  "p": 1,
+  "seed": 0,
+  "val_ppl": 10.909203114788736,
+  "arch": {
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 2,
+    "d_ff": 512,
+    "max_seq_len": 128,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "batch_size": 256,
+    "grad_clip": 1.0,
+    "n_epochs": 5
+  },
+  "wall_sec": 13202.8,
+  "gate_ref": 10.911,
+  "gate_rel_dev": 0.00016468565770901738,
+  "gate_ok": true,
+  "GATE_FAIL": false,
+  "exp": "lm_readout_exponent",
+  "key": "d2_p1_s0"
+}

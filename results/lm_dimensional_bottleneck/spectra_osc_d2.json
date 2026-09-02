@@ -1,0 +1,31 @@
+{
+  "name": "osc_d2",
+  "mechanism": "oscillator",
+  "d_osc": 2,
+  "bound_rank": 3,
+  "effective_rank_causal_attn": {
+    "mean": 38.77982693654485,
+    "std": 20.445943612874387,
+    "n": 1024,
+    "min": 3.7149264812469482,
+    "max": 64.87181854248047
+  },
+  "participation_ratio": {
+    "mean": 21.463732176227495,
+    "std": 10.689026315707363,
+    "n": 1024,
+    "min": 2.6846184730529785,
+    "max": 37.28659439086914
+  },
+  "effective_rank_unmasked_similarity": {
+    "mean": 2.30812150251586,
+    "std": 0.4069401443492044,
+    "n": 1024,
+    "min": 1.0078279972076416,
+    "max": 2.897606372833252
+  },
+  "n_val_seqs": 128,
+  "ckpt": "results/lm_dimensional_bottleneck/ckpt/ts_d2_s0_ep5.pt",
+  "exp": "lm_dimensional_bottleneck",
+  "key": "spectra_osc_d2"
+}

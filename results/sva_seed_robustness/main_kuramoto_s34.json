@@ -1,0 +1,23 @@
+{
+  "attn_type": "kuramoto",
+  "seed": 34,
+  "lr": 0.0005,
+  "n_epochs": 20,
+  "val_acc": {
+    "all": 97.8,
+    "simple": 97.719,
+    "hard": 96.618
+  },
+  "failure": false,
+  "wall_sec": 62.4,
+  "arch": {
+    "d_model": 32,
+    "n_heads": 1,
+    "n_layers": 1,
+    "d_ff": 64,
+    "d_osc": 2,
+    "max_seq_len": 50
+  },
+  "exp": "sva_seed_robustness",
+  "key": "main_kuramoto_s34"
+}

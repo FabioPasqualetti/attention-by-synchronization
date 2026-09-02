@@ -1,0 +1,9 @@
+{
+  "target": "ts",
+  "type": "coupling",
+  "scale": 0.5,
+  "draw": 3,
+  "ppl": 7.68503816755864,
+  "exp": "robustness_perturbations",
+  "key": "ts_coupling_s0.5_d3"
+}

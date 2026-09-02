@@ -1,0 +1,25 @@
+{
+  "mech": "softmax",
+  "pe": "learned_abs",
+  "seed": 3,
+  "val_acc": 0.9054820415879017,
+  "wall_sec": 286.5,
+  "arch": {
+    "n_feats": 40,
+    "d_model": 32,
+    "n_heads": 2,
+    "n_layers": 1,
+    "n_classes": 10,
+    "T": 49,
+    "d_osc": 2,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "n_epochs": 30,
+    "grad_clip": 1.0
+  },
+  "exp": "kws_position_matched",
+  "key": "softmax_learned_abs_s3"
+}

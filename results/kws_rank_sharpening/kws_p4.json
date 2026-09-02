@@ -1,0 +1,19 @@
+{
+  "p": 4,
+  "seed": 3,
+  "ckpt": "results/kws/checkpoints_readout_sharpening/KWS_p4_s3_ep30.pt",
+  "sim_op_eff_rank": {
+    "mean": 1.35274310598752,
+    "std": 0.25743005267425706
+  },
+  "readout_attn_eff_rank": {
+    "mean": 1.6758355655091985,
+    "std": 0.517922426597708
+  },
+  "bound_d_osc_plus_1": 3,
+  "ckpt_val_acc": 0.9000810153929246,
+  "paper_3seed_acc_mean": 0.8877486722477271,
+  "n_matrices": 7406,
+  "exp": "kws_rank_sharpening",
+  "key": "kws_p4"
+}

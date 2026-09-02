@@ -1,0 +1,23 @@
+{
+  "attn_type": "softmax",
+  "seed": 27,
+  "lr": 0.0005,
+  "n_epochs": 20,
+  "val_acc": {
+    "all": 85.075,
+    "simple": 86.975,
+    "hard": 84.822
+  },
+  "failure": true,
+  "wall_sec": 53.2,
+  "arch": {
+    "d_model": 32,
+    "n_heads": 1,
+    "n_layers": 1,
+    "d_ff": 64,
+    "d_osc": 2,
+    "max_seq_len": 50
+  },
+  "exp": "sva_seed_robustness",
+  "key": "main_softmax_s27"
+}

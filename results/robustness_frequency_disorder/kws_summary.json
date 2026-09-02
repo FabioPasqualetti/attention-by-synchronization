@@ -1,0 +1,30 @@
+{
+  "target": "kws",
+  "metric": "acc",
+  "baseline": 0.90234375,
+  "s": [
+    0.01,
+    0.05,
+    0.1,
+    0.2,
+    0.5
+  ],
+  "mean": [
+    0.90234375,
+    0.903125,
+    0.902734375,
+    0.901953125,
+    0.9015625
+  ],
+  "std": [
+    0.0,
+    0.000956831930774679,
+    0.0014615849167085707,
+    0.00078125,
+    0.0019918044974971813
+  ],
+  "locking_loss_s_star": 0.2,
+  "note": "s* = s level with the largest adjacent change in the metric",
+  "exp": "robustness_frequency_disorder",
+  "key": "kws_summary"
+}

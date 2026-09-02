@@ -1,0 +1,10 @@
+{
+  "rank": 3,
+  "ppl": 49.73887641202708,
+  "matched_d_osc": 2,
+  "eval": "full_val",
+  "n_val_seqs": 47385,
+  "ckpt": "ts_softmax_s0_ep5.pt",
+  "exp": "lm_dimensional_bottleneck",
+  "key": "truncation_full_val_r3"
+}

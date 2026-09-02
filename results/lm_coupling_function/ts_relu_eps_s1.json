@@ -1,0 +1,28 @@
+{
+  "task": "tinystories",
+  "sigma": "relu_eps",
+  "d_osc": 8,
+  "seed": 1,
+  "val_ppl": 9.872862075888916,
+  "arch": {
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 2,
+    "d_ff": 512,
+    "max_seq_len": 128,
+    "dropout": 0.1
+  },
+  "train": {
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "batch_size": 256,
+    "grad_clip": 1.0,
+    "n_epochs": 5
+  },
+  "wall_sec": 13533.9,
+  "gate_ref_ppl": 9.867848715190865,
+  "gate_rel_dev": 0.0005080500160418145,
+  "gate_ok": true,
+  "exp": "lm_coupling_function",
+  "key": "ts_relu_eps_s1"
+}

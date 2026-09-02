@@ -1,0 +1,10 @@
+{
+  "d_qk": 8,
+  "seed": 3,
+  "val_ppl": 9.008103969428424,
+  "n_heads": 4,
+  "d_v_per_head": 32,
+  "config": "identical to seeds 0,1 (only seed differs)",
+  "wall_sec": 10725.8,
+  "key": "rankmatch_dqk8_s3"
+}

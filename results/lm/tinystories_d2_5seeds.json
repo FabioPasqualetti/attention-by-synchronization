@@ -1,0 +1,16 @@
+{
+  "d_osc": 2,
+  "attn_type": "kuramoto",
+  "seeds": {
+    "0": 10.964300702062024,
+    "1": 10.971920342164495,
+    "2": 10.90449698763914,
+    "3": 10.925047100276704,
+    "4": 10.859582314927257
+  },
+  "n_seeds": 5,
+  "mean": 10.925069489413923,
+  "std": 0.046,
+  "softmax_ppl": 8.54,
+  "notes": "Seeds 0-2 and seeds 3-4 were trained in separate runs of the same configuration."
+}

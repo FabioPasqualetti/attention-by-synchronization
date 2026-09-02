@@ -1,0 +1,9 @@
+{
+  "target": "sva",
+  "type": "baseline",
+  "seed": 2,
+  "acc": 0.9765,
+  "n_val": 4000,
+  "exp": "robustness_perturbations",
+  "key": "sva_baseline_s2"
+}

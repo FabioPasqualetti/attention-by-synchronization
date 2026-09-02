@@ -1,0 +1,14 @@
+{
+  "dataset": "ts",
+  "tag": "d64",
+  "d_osc": 64,
+  "attn_type": "kuramoto",
+  "seed": 3,
+  "val_ppl": 9.007541309282294,
+  "wall_sec": 14216.3,
+  "gate_ref_ppl": 8.928031028408531,
+  "gate_rel_dev": 0.008905690473158622,
+  "gate_ok": true,
+  "exp": "lm_dimension_scaling",
+  "key": "ts_d64_s3"
+}

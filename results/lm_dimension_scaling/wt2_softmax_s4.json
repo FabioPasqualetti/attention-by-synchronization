@@ -1,0 +1,11 @@
+{
+  "dataset": "wt2",
+  "tag": "softmax",
+  "d_osc": 0,
+  "attn_type": "softmax",
+  "seed": 4,
+  "val_ppl": 99.53275776572698,
+  "wall_sec": 286.0,
+  "exp": "lm_dimension_scaling",
+  "key": "wt2_softmax_s4"
+}

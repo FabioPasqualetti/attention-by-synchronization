@@ -1,0 +1,9 @@
+{
+  "d_osc": 64,
+  "attn_type": "kuramoto",
+  "seed": 4,
+  "val_ppl": 102.19900118471588,
+  "wall_sec": 342.4,
+  "exp": "lm_wikitext_extrapolation",
+  "key": "train_wt2_d64_s4"
+}

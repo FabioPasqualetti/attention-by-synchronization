@@ -1,0 +1,19 @@
+{
+  "p": 2,
+  "seed": 3,
+  "ckpt": "results/kws/checkpoints_readout_sharpening/KWS_p2_s3_ep30.pt",
+  "sim_op_eff_rank": {
+    "mean": 1.72278851875897,
+    "std": 0.36316366137419387
+  },
+  "readout_attn_eff_rank": {
+    "mean": 1.975001676611214,
+    "std": 0.5196795088343277
+  },
+  "bound_d_osc_plus_1": 3,
+  "ckpt_val_acc": 0.8941398865784499,
+  "paper_3seed_acc_mean": 0.8972004680889368,
+  "n_matrices": 7406,
+  "exp": "kws_rank_sharpening",
+  "key": "kws_p2"
+}

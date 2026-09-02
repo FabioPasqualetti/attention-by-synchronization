@@ -1,0 +1,9 @@
+{
+  "target": "ts",
+  "type": "state",
+  "scale": 0.1,
+  "draw": 3,
+  "ppl": 7.728315938347855,
+  "exp": "robustness_perturbations",
+  "key": "ts_state_s0.1_d3"
+}
