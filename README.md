@@ -127,9 +127,10 @@ Figure 5). Both figures therefore regenerate from a clean clone with no training
 | 4 — LM dimension scaling | `language_modeling/dimension_scaling.py` (+ `_analysis.py`) | `results/lm_dimension_scaling` | `runs/lm_dimension_scaling` |
 | 5 — readout exponent | `keyword_spotting/readout_exponent.py`, `language_modeling/readout_exponent.py` | `results/kws_readout_exponent`, `results/lm_readout_exponent` | `runs/kws_readout_exponent`, `runs/lm_readout_exponent` |
 | 6 — ODE convergence | `convergence/ts_convergence.py` | `results/convergence/TS_verify_adaptive.json` | `runs/convergence` |
-| 7 — operation accounting | `cost/operation_accounting.py` | `results/cost_operation_accounting` | `runs/cost_operation_accounting` |
+| 7 — operation accounting | `cost/operation_accounting.py` (`stage_mae`) | `results/cost_operation_accounting/cost_tables.md`, the "With ReLU coupling" block | `runs/cost_operation_accounting` |
 | 8 — SVA d_ff sweep (App.) | `sva/architecture_sweep.py` | `results/sva/sva_arch_sweep_5seeds.json` | `runs/sva/` |
 | 9 — finite settling (App.) | `robustness/perturbations.py`, `robustness/sva_settling.py` | `results/robustness_perturbations` (`*_settle_*`) | `runs/robustness_perturbations` |
+| 10 — cost with softplus coupling (App.) | `cost/operation_accounting.py` | `results/cost_operation_accounting/cost_tables.md` | `runs/cost_operation_accounting` |
 
 Other appendix numbers: coupling ablation -> `language_modeling/coupling_function*.py`
 (`results/lm_coupling_function`); OOS extrapolation -> `language_modeling/{tinystories,wikitext}_extrapolation*.py`

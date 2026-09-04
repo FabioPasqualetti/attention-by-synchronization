@@ -1,10 +1,10 @@
 ### cost_operation_accounting — Per-inference cost accounting: two deployment paths
 
-Operation counts only — **no energy**. Per attention layer; dense pair count P = T² (the T²·n_h convention; TinyStories is causal so realized valid pairs ≈ T²/2 — noted, not applied). Front-end (QK/coupling) MACs and value-path MACs are **identical** between mechanisms.
+Operation counts only — **no energy**. Per attention layer; dense pair count P = pairs actually evaluated (T² bidirectional, T(T+1)/2 causal). Front-end (QK/coupling) MACs and value-path MACs are **identical** between mechanisms.
 
 
 #### KWS — Path A: all-digital evaluation (paper's train/eval convention)
-(T=49, n_h=2, d_h=16, d_osc=2, d_model=32, causal=False, P=T²=2,401)
+(T=49, n_h=2, d_h=16, d_osc=2, d_model=32, causal=False, pairs=2,401)
 
 | op | softmax | oscillator (analytic) |
 |---|---|---|
@@ -22,7 +22,7 @@ _Path A **favors softmax** in digital op count (the oscillator adds fixed-point 
 
 
 #### KWS — Path B: hybrid deployment (proposed)
-(T=49, n_h=2, d_h=16, d_osc=2, d_model=32, causal=False, P=T²=2,401)
+(T=49, n_h=2, d_h=16, d_osc=2, d_model=32, causal=False, pairs=2,401)
 
 | stage | softmax (digital) | oscillator (hybrid) |
 |---|---|---|
@@ -42,7 +42,7 @@ Readout variants (both computed; **choice left open**, TBD by the fixed-point im
 
 
 #### SVA — Path A: all-digital evaluation (paper's train/eval convention)
-(T=9, n_h=1, d_h=32, d_osc=2, d_model=32, causal=False, P=T²=81)
+(T=9, n_h=1, d_h=32, d_osc=2, d_model=32, causal=False, pairs=81)
 
 | op | softmax | oscillator (analytic) |
 |---|---|---|
@@ -60,7 +60,7 @@ _Path A **favors softmax** in digital op count (the oscillator adds fixed-point 
 
 
 #### SVA — Path B: hybrid deployment (proposed)
-(T=9, n_h=1, d_h=32, d_osc=2, d_model=32, causal=False, P=T²=81)
+(T=9, n_h=1, d_h=32, d_osc=2, d_model=32, causal=False, pairs=81)
 
 | stage | softmax (digital) | oscillator (hybrid) |
 |---|---|---|
@@ -80,41 +80,69 @@ Readout variants (both computed; **choice left open**, TBD by the fixed-point im
 
 
 #### TinyStories — Path A: all-digital evaluation (paper's train/eval convention)
-(T=128, n_h=4, d_h=32, d_osc=8, d_model=128, causal=True, P=T²=16,384)
+(T=128, n_h=4, d_h=32, d_osc=8, d_model=128, causal=True, pairs=8,256)
 
 | op | softmax | oscillator (analytic) |
 |---|---|---|
-| QK / coupling front-end MACs | 6,291,456 | 6,291,456 |
-| exp evaluations | 65,536 (T exps/query) | 65,536 (softplus) |
-| fixed-point MACs (Σ W·anchor) | — | 524,288 |
-| readout MACs (cos s_ij) | — | 524,288 |
+| QK / coupling front-end MACs | 5,251,072 | 5,251,072 |
+| exp evaluations | 33,024 (T exps/query) | 33,024 (softplus) |
+| fixed-point MACs (Σ W·anchor) | — | 264,192 |
+| readout MACs (cos s_ij) | — | 264,192 |
 | global reduction (Σ over T) | 512 | 1,024 |
 | division | 512 | 1,024 |
-| value-path MACs (V,A·V,O) | 6,291,456 | 6,291,456 |
-| **total MACs** | **12,582,912** | **13,631,488** |
-| **total exp / reduction / division** | **65,536 / 512 / 512** | **65,536 / 1,024 / 1,024** |
+| value-path MACs (V,A·V,O) | 5,251,072 | 5,251,072 |
+| **total MACs** | **10,502,144** | **11,030,528** |
+| **total exp / reduction / division** | **33,024 / 512 / 512** | **33,024 / 1,024 / 1,024** |
 
 _Path A **favors softmax** in digital op count (the oscillator adds fixed-point and readout MACs on top of the shared front-end). This is the training/evaluation convention — not the proposed deployment._
 
 
 #### TinyStories — Path B: hybrid deployment (proposed)
-(T=128, n_h=4, d_h=32, d_osc=8, d_model=128, causal=True, P=T²=16,384)
+(T=128, n_h=4, d_h=32, d_osc=8, d_model=128, causal=True, pairs=8,256)
 
 | stage | softmax (digital) | oscillator (hybrid) |
 |---|---|---|
-| coupling / QK front-end MACs | 6,291,456 | 6,291,456 |
-| coupling-programming writes (T²·n_h) | — | 65,536 |
-| exp evaluations | 65,536 (T²) | **0** |
-| readout (i) component/vector — d_osc MACs/pair | — | 524,288 MACs |
-| readout (ii) phase — T²·n_h cosine evals | — | 65,536 cosines |
+| coupling / QK front-end MACs | 5,251,072 | 5,251,072 |
+| coupling-programming writes (T²·n_h) | — | 33,024 |
+| exp evaluations | 33,024 (T²) | **0** |
+| readout (i) component/vector — d_osc MACs/pair | — | 264,192 MACs |
+| readout (ii) phase — T²·n_h cosine evals | — | 33,024 cosines |
 | row reduction (Σ over T) | 512 | 512 |
 | division (one per token) | 512 | 512 |
-| value-path MACs (V,A·V,O) | 6,291,456 | 6,291,456 |
+| value-path MACs (V,A·V,O) | 5,251,072 | 5,251,072 |
 | **physical stage** (not ops/cycles) | — | settling horizon T_settle ≈ **30** (dimensionless, normalized units; measured (robustness_perturbations): within 0.14% of analytic FP by T≈30) |
 
 Readout variants (both computed; **choice left open**, TBD by the fixed-point implementation): **(i)** component/vector readout — s_ij as d_osc MACs per pair, anchors precomputed (assumes state components measured directly, e.g. I/Q demodulation in the scalar case); **(ii)** phase readout — T²·n_h cosine evaluations.
 
 > Physical latency equals the settling horizon divided by the effective coupling rate, a design parameter; the binding constraints are fabrication precision and noise, whose tolerated envelopes are measured in robustness_perturbations (coupling mismatch, state noise).
+
+
+### Attention stage in multiply-add equivalents (paper Table 7)
+
+One exponential is counted as 10 multiply-adds and every other operation as one (Horowitz, ISSCC 2014; Park & Park, arXiv:2603.12934). Only the step where the mechanisms differ is counted; the projections, pairwise couplings and value products around it are identical and excluded. Coupling-programming writes are not charged.
+
+
+**With ReLU coupling.**
+
+| implementation | KWS | SVA | TinyStories |
+|---|---|---|---|
+| softmax | 48,216 | 828 | 331,264 |
+| oscillator, all digital | 24,402 | 441 | 563,456 |
+| oscillator, equilibration physical | 14,602 | 261 | 298,240 |
+| oscillator, equilibration and readout physical | 4,998 | 99 | 34,048 |
+| **softmax / oscillator** | 1.98x / 3.30x / 9.65x | 1.88x / 3.17x / 8.36x | 0.59x / 1.11x / 9.73x |
+
+**With softplus coupling.**
+
+| implementation | KWS | SVA | TinyStories |
+|---|---|---|---|
+| softmax | 48,216 | 828 | 331,264 |
+| oscillator, all digital | 67,620 | 1,170 | 860,672 |
+| oscillator, equilibration physical | 57,820 | 990 | 595,456 |
+| oscillator, equilibration and readout physical | 48,216 | 828 | 331,264 |
+| **softmax / oscillator** | 0.71x / 0.83x / 1.00x | 0.71x / 0.84x / 1.00x | 0.38x / 0.56x / 1.00x |
+
+With softplus coupling the last row equals the softmax row exactly: both reduce to the same expression, one exponential per pair plus one row sum and one division. Verified by integer equality in softplus_identity(): True.
 
 
 **Takeaway.** Front-end (QK/coupling) and value-path MAC counts are identical between mechanisms in every config. Path A (all-digital) favors softmax. Path B (proposed hybrid) removes softmax's T² exponentials entirely (exp = 0), moves the fixed-point computation into a physical equilibration stage characterized only by a dimensionless settling horizon, and leaves the digital side with coupling writes + readout + one reduction + one division/token + value MACs.

@@ -1,20 +1,21 @@
-"""cost_operation_accounting — Analytical per-inference cost accounting (analysis only, CPU, no training).
+"""cost_operation_accounting — Analytical per-inference cost accounting (analysis only, CPU).
 
-Two-path accounting per config (KWS / SVA / TinyStories). NO energy (joules) anywhere.
+Per-configuration operation counts for KWS / SVA / TinyStories. No end-to-end energy
+figures: those are a device property. Per-operation energies enter only as the
+multiply-add weighting used to compare an exponential against a multiply-add.
 
-Path A — all-digital evaluation (the paper's training/eval convention): full digital op
-counts, softmax vs oscillator analytic path. Favors softmax in digital op count.
+counts() returns the raw per-stage operation counts. Two breakdowns are printed for
+reference: an all-digital one and a hybrid one in which the fixed point is reached by
+physical equilibration.
 
-Path B — hybrid deployment (proposed): the digital side keeps coupling front-end MACs +
-coupling-programming writes (T^2*n_h) + readout + row reduction + one division/token + value
-MACs, and has exp = 0 (vs softmax's T^2). The fixed-point computation is NOT a digital op
-column — it is performed by physical equilibration, characterized only by a dimensionless
-settling horizon T_settle in normalized units of the trained dynamics (from robustness_perturbations; NOT cycles/dt).
-Two readout variants are reported (both computed): (i) component/vector readout (d_osc MACs
-per pair, anchors precomputed) and (ii) phase readout (T^2*n_h cosine evaluations).
+stage_mae() produces the paper's Table 7: the attention stage only, in multiply-add
+equivalents, for three implementations (see the comment above it). It is the aggregation
+the paper uses; note that it does not charge coupling-programming writes, since how
+couplings are loaded into an array is device-dependent and not modelled here.
 
-Counts use dense pair count P = T^2 (matching the T^2*n_h convention in the review). TinyStories
-is causal, so its realized valid-pair count is ~T^2/2 — noted, not applied, for convention parity.
+Per-pair terms use the number of query-key pairs actually evaluated: T^2 for a
+bidirectional model, T(T+1)/2 for a causal one. TinyStories is causal, so its per-pair
+counts are masked accordingly.
 """
 import os
 import sys
@@ -38,6 +39,19 @@ T_SETTLE_NOTE = {
            "vs the analytic fixed point is below the accuracy resolution by T=5",
     "TinyStories": "measured (robustness_perturbations): within 0.14% of analytic FP by T≈30",
 }
+# --- Energy weighting: multiply-add equivalents (MAE) -------------------------
+# Operation counts alone treat an exponential and a multiply-add as one unit each,
+# which understates softmax: its cost is concentrated in the exponential.
+#
+# Horowitz, ISSCC 2014 ("Computing's Energy Problem"), 45 nm: FP32 add = 0.9 pJ,
+# FP32 multiply = 3.7 pJ, hence one multiply-accumulate = 4.6 pJ.
+# Park & Park, arXiv:2603.12934, Table "Softmax exponential unit cost": a digital
+# exponential by Taylor series = 10 FP MACs ~ 46 pJ at FP32/45 nm (INT8: ~2.3 pJ).
+# Ratio exponential : MAC = 10 : 1.
+MAC_PJ         = 4.6   # pJ per FP32 multiply-accumulate (3.7 multiply + 0.9 add)
+EXP_MAC_EQUIV  = 10    # multiply-adds per digital exponential (Taylor series)
+RELU_MAC_EQUIV = 1     # relu/elu coupling: one compare-and-select per pair
+
 CAVEAT = ("Physical latency equals the settling horizon divided by the effective coupling "
           "rate, a design parameter; the binding constraints are fabrication precision and "
           "noise, whose tolerated envelopes are measured in robustness_perturbations (coupling mismatch, state noise).")
@@ -45,7 +59,14 @@ CAVEAT = ("Physical latency equals the settling horizon divided by the effective
 
 def counts(cfg, task):
     T, H, dh, do, dm = cfg["T"], cfg["n_h"], cfg["d_h"], cfg["d_osc"], cfg["d_model"]
-    P = T * T  # dense pair count (T^2)
+    # Query-key pairs actually evaluated. A causal model computes only the lower
+    # triangle, T(T+1)/2 per head, so every per-pair term is masked. Both
+    # mechanisms evaluate their nonlinearity elementwise on the same score
+    # matrix (exp for softmax, softplus or relu for the oscillator), so the mask
+    # applies identically to both. Per-token terms (the projections, and the one
+    # row reduction and one division per query) do not depend on the pair count
+    # and are unaffected.
+    P = T * (T + 1) // 2 if cfg["causal"] else T * T
     qk_macs = 2 * T * dm * (H * dh) + H * P * dh          # W_q,W_k + QK^T
     value_macs = T * dm * (H * dh) + H * P * dh + T * (H * dh) * dm  # W_v + A·V + W_o
     return dict(
@@ -69,12 +90,12 @@ def _f(n):
 def markdown(all_c):
     L = ["### cost_operation_accounting — Per-inference cost accounting: two deployment paths\n",
          "Operation counts only — **no energy**. Per attention layer; dense pair count "
-         "P = T² (the T²·n_h convention; TinyStories is causal so realized valid pairs ≈ T²/2 — "
-         "noted, not applied). Front-end (QK/coupling) MACs and value-path MACs are **identical** "
+         "P = pairs actually evaluated (T² bidirectional, T(T+1)/2 causal). "
+         "Front-end (QK/coupling) MACs and value-path MACs are **identical** "
          "between mechanisms.\n"]
     for task, c in all_c.items():
         hdr = (f"(T={c['T']}, n_h={c['H']}, d_h={c['d_h']}, d_osc={c['d_osc']}, "
-               f"d_model={c['d_model']}, causal={c['causal']}, P=T²={_f(c['P'])})")
+               f"d_model={c['d_model']}, causal={c['causal']}, pairs={_f(c['P'])})")
 
         # ---- Path A ----
         L.append(f"\n#### {task} — Path A: all-digital evaluation (paper's train/eval convention)\n{hdr}\n")
@@ -114,6 +135,32 @@ def markdown(all_c):
                  "demodulation in the scalar case); **(ii)** phase readout — T²·n_h cosine evaluations.\n")
         L.append(f"> {CAVEAT}\n")
 
+    # ---- Attention stage in multiply-add equivalents (the paper's Table 7) ----
+    L.append("\n### Attention stage in multiply-add equivalents (paper Table 7)\n")
+    L.append(f"One exponential is counted as {EXP_MAC_EQUIV} multiply-adds and every other "
+             f"operation as one (Horowitz, ISSCC 2014; Park & Park, arXiv:2603.12934). "
+             f"Only the step where the mechanisms differ is counted; the projections, "
+             f"pairwise couplings and value products around it are identical and excluded. "
+             f"Coupling-programming writes are not charged.\n")
+    for label, w in [("ReLU coupling", RELU_MAC_EQUIV), ("softplus coupling", EXP_MAC_EQUIV)]:
+        L.append(f"\n**With {label}.**\n")
+        L.append("| implementation | " + " | ".join(all_c) + " |")
+        L.append("|---|" + "---|" * len(all_c))
+        m = {t: stage_mae(c, coupling_weight=w) for t, c in all_c.items()}
+        for name, key in [("softmax", "softmax_mae"),
+                          ("oscillator, all digital", "all_digital_mae"),
+                          ("oscillator, equilibration physical", "equilibration_physical_mae"),
+                          ("oscillator, equilibration and readout physical", "both_physical_mae")]:
+            L.append(f"| {name} | " + " | ".join(_f(m[t][key]) for t in all_c) + " |")
+        L.append("| **softmax / oscillator** | " + " | ".join(
+            "%.2fx / %.2fx / %.2fx" % (m[t]["ratio_all_digital"],
+                                       m[t]["ratio_equilibration_physical"],
+                                       m[t]["ratio_both_physical"]) for t in all_c) + " |")
+    L.append("\nWith softplus coupling the last row equals the softmax row exactly: both "
+             "reduce to the same expression, one exponential per pair plus one row sum and "
+             "one division. Verified by integer equality in softplus_identity(): "
+             f"{all(softplus_identity(c) for c in all_c.values())}.\n")
+
     L.append("\n**Takeaway.** Front-end (QK/coupling) and value-path MAC counts are identical "
              "between mechanisms in every config. Path A (all-digital) favors softmax. Path B "
              "(proposed hybrid) removes softmax's T² exponentials entirely (exp = 0), moves the "
@@ -136,3 +183,61 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# --- Attention-stage cost in multiply-add equivalents -------------------------
+# Three implementations of the step where the mechanisms differ, all with ReLU
+# coupling (the ablation licenses it: relu(x)+1e-3 matches softplus, 9.856 vs
+# 9.784 on TinyStories, inside the pooled between-seed spread).
+#
+#   A  all digital                : coupling nonlinearity + fixed point + readout
+#                                   + both normalizations (sphere and readout).
+#   B  equilibration physical     : the array performs the equilibration, which
+#                                   removes the fixed point and the normalization
+#                                   onto the sphere; the readout stays digital.
+#   C  equilibration and readout  : the array also measures the inner products
+#      both physical                z*^T r_j. The affine normalization (row sum
+#                                   and division) stays digital on the back-end.
+#                                   This is the design stated in Remark 1 of the
+#                                   paper ("inner products on the sphere are the
+#                                   natural observable from oscillator hardware
+#                                   ... the linear normalization requires only
+#                                   division, which is cheap to perform digitally
+#                                   on the back-end"). The row sum is NOT moved
+#                                   into the array; doing so would give 4,900 on
+#                                   KWS instead of 4,998, and would contradict
+#                                   Remark 1.
+#
+# Path C leaves softmax and the oscillator with the same expression shape: one
+# nonlinearity per pair, one row sum, one division. The whole difference is then
+# the nonlinearity weight, so with softplus coupling (weight EXP_MAC_EQUIV) the
+# two are exactly equal, not approximately -- see softplus_identity().
+def stage_mae(c, coupling_weight=None):
+    """Attention stage only (the stage where the mechanisms differ), in MAE.
+
+    coupling_weight defaults to RELU_MAC_EQUIV; pass EXP_MAC_EQUIV for the
+    softplus variant the trained models actually use.
+    """
+    w = RELU_MAC_EQUIV if coupling_weight is None else coupling_weight
+    soft = c["exp"] * EXP_MAC_EQUIV + c["reduction_soft"] + c["division_soft"]
+    a = (c["exp"] * w + c["fixed_point_macs"] + c["readout_i_macs"]
+         + c["reduction_osc"] + c["division_osc"])
+    b = (c["exp"] * w + c["readout_i_macs"]
+         + c["reduction_osc"] // 2 + c["division_hybrid"])
+    c_ = c["exp"] * w + c["reduction_soft"] + c["division_soft"]
+    return dict(softmax_mae=soft, all_digital_mae=a,
+                equilibration_physical_mae=b, both_physical_mae=c_,
+                ratio_all_digital=soft / a, ratio_equilibration_physical=soft / b,
+                ratio_both_physical=soft / c_,
+                softmax_pj=soft * MAC_PJ, all_digital_pj=a * MAC_PJ,
+                equilibration_physical_pj=b * MAC_PJ, both_physical_pj=c_ * MAC_PJ)
+
+
+def softplus_identity(c):
+    """With softplus coupling, Path C and softmax are the SAME expression.
+
+    Both reduce to exp*EXP_MAC_EQUIV + reduction_soft + division_soft, so the
+    ratio is exactly 1, by identity rather than by rounding.
+    """
+    m = stage_mae(c, coupling_weight=EXP_MAC_EQUIV)
+    return m["softmax_mae"] == m["both_physical_mae"]

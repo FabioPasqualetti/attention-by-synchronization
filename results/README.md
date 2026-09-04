@@ -56,6 +56,7 @@ the results and conclusions reproduce, individual digits are not guaranteed bit-
 | 7 — operation accounting | `cost_operation_accounting/` | `cost/operation_accounting.py` |
 | 8 — SVA d_ff sweep (App.) | `sva/sva_arch_sweep_5seeds.json` (widths 72/56/32/16); the d_ff = 64 row is `sva_paper_final.json` + `sva_configG_5seeds.json`, a separate evaluation | `sva/architecture_sweep.py` |
 | 9 — finite settling (App.) | `robustness_perturbations/{kws,ts,sva}_settle_*` | `robustness/perturbations.py`, `robustness/sva_settling.py` |
+| 10 — cost with softplus coupling (App.) | `cost_operation_accounting/cost_tables.md`, the "With softplus coupling" block | `cost/operation_accounting.py` |
 
 ## Figures
 
