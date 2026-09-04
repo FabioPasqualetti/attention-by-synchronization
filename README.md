@@ -131,6 +131,7 @@ Figure 5). Both figures therefore regenerate from a clean clone with no training
 | 8 — SVA d_ff sweep (App.) | `sva/architecture_sweep.py` | `results/sva/sva_arch_sweep_5seeds.json` | `runs/sva/` |
 | 9 — finite settling (App.) | `robustness/perturbations.py`, `robustness/sva_settling.py` | `results/robustness_perturbations` (`*_settle_*`) | `runs/robustness_perturbations` |
 | 10 — cost with softplus coupling (App.) | `cost/operation_accounting.py` | `results/cost_operation_accounting/cost_tables.md` | `runs/cost_operation_accounting` |
+| 11 — absolute operation counts (App.) | `cost/operation_accounting.py` (`stage_mae`) | `results/cost_operation_accounting/cost_tables.md`, both coupling blocks | `runs/cost_operation_accounting` |
 
 Other appendix numbers: coupling ablation -> `language_modeling/coupling_function*.py`
 (`results/lm_coupling_function`); OOS extrapolation -> `language_modeling/{tinystories,wikitext}_extrapolation*.py`
