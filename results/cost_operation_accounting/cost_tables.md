@@ -133,7 +133,8 @@ One exponential is counted as 10 multiply-adds and every other operation as one 
 | oscillator, all digital | 33,908 | 594 | 635,136 |
 | oscillator, equilibration physical | 23,912 | 396 | 362,752 |
 | oscillator, equilibration and readout physical | 14,308 | 234 | 98,560 |
-| **softmax / oscillator** | 1.70x / 2.41x / 4.02x | 1.62x / 2.43x / 4.12x | 0.62x / 1.09x / 4.02x |
+| oscillator, affine sum and division physical | 4,802 | 81 | 33,024 |
+| **softmax / oscillator** | 1.70x / 2.41x / 4.02x / 11.98x | 1.62x / 2.43x / 4.12x / 11.89x | 0.62x / 1.09x / 4.02x / 11.98x |
 
 **With softplus coupling.**
 
@@ -143,9 +144,10 @@ One exponential is counted as 10 multiply-adds and every other operation as one 
 | oscillator, all digital | 77,126 | 1,323 | 932,352 |
 | oscillator, equilibration physical | 67,130 | 1,125 | 659,968 |
 | oscillator, equilibration and readout physical | 57,526 | 963 | 395,776 |
-| **softmax / oscillator** | 0.75x / 0.86x / 1.00x | 0.73x / 0.86x / 1.00x | 0.42x / 0.60x / 1.00x |
+| oscillator, affine sum and division physical | 48,020 | 810 | 330,240 |
+| **softmax / oscillator** | 0.75x / 0.86x / 1.00x / 1.20x | 0.73x / 0.86x / 1.00x / 1.19x | 0.42x / 0.60x / 1.00x / 1.20x |
 
-With softplus coupling the last row equals the softmax row exactly: both reduce to the same expression, one exponential per pair plus one row sum and one division. Verified by integer equality in softplus_identity(): True.
+With softplus coupling the third row equals the softmax row exactly: both reduce to the same expression, one exponential per pair plus one row sum and one division. Verified by integer equality in softplus_identity(): True.
 
 
 **Takeaway.** Front-end (QK/coupling) and value-path MAC counts are identical between mechanisms in every config. Path A (all-digital) favors softmax. Path B (proposed hybrid) removes softmax's T² exponentials entirely (exp = 0), moves the fixed-point computation into a physical equilibration stage characterized only by a dimensionless settling horizon, and leaves the digital side with coupling writes + readout + one reduction + one division/token + value MACs.

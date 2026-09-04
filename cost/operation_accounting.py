@@ -158,13 +158,15 @@ def markdown(all_c):
         for name, key in [("softmax", "softmax_mae"),
                           ("oscillator, all digital", "all_digital_mae"),
                           ("oscillator, equilibration physical", "equilibration_physical_mae"),
-                          ("oscillator, equilibration and readout physical", "both_physical_mae")]:
+                          ("oscillator, equilibration and readout physical", "both_physical_mae"),
+                          ("oscillator, affine sum and division physical", "fully_physical_mae")]:
             L.append(f"| {name} | " + " | ".join(_f(m[t][key]) for t in all_c) + " |")
         L.append("| **softmax / oscillator** | " + " | ".join(
-            "%.2fx / %.2fx / %.2fx" % (m[t]["ratio_all_digital"],
-                                       m[t]["ratio_equilibration_physical"],
-                                       m[t]["ratio_both_physical"]) for t in all_c) + " |")
-    L.append("\nWith softplus coupling the last row equals the softmax row exactly: both "
+            "%.2fx / %.2fx / %.2fx / %.2fx" % (m[t]["ratio_all_digital"],
+                                               m[t]["ratio_equilibration_physical"],
+                                               m[t]["ratio_both_physical"],
+                                               m[t]["ratio_fully_physical"]) for t in all_c) + " |")
+    L.append("\nWith softplus coupling the third row equals the softmax row exactly: both "
              "reduce to the same expression, one exponential per pair plus one row sum and "
              "one division. Verified by integer equality in softplus_identity(): "
              f"{all(softplus_identity(c) for c in all_c.values())}.\n")
@@ -233,12 +235,15 @@ def stage_mae(c, coupling_weight=None):
          + c["readout_i_macs"] + norm)
     b = c["exp"] * w + c["readout_i_macs"] + norm
     c_ = c["exp"] * w + norm
+    d = c["exp"] * w
     return dict(softmax_mae=soft, all_digital_mae=a,
                 equilibration_physical_mae=b, both_physical_mae=c_,
+                fully_physical_mae=d,
                 ratio_all_digital=soft / a, ratio_equilibration_physical=soft / b,
-                ratio_both_physical=soft / c_,
+                ratio_both_physical=soft / c_, ratio_fully_physical=soft / d,
                 softmax_pj=soft * MAC_PJ, all_digital_pj=a * MAC_PJ,
-                equilibration_physical_pj=b * MAC_PJ, both_physical_pj=c_ * MAC_PJ)
+                equilibration_physical_pj=b * MAC_PJ, both_physical_pj=c_ * MAC_PJ,
+                fully_physical_pj=d * MAC_PJ)
 
 
 def softplus_identity(c):
