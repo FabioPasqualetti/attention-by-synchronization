@@ -77,8 +77,15 @@ def counts(cfg, task):
         readout_i_macs=H * P * do,        # (i) component readout: d_osc MACs/pair
         readout_ii_cos=H * P,             # (ii) phase readout: cosine evals (T^2*n_h)
         coupling_writes=H * P,            # coupling-programming writes (T^2*n_h)
-        reduction_soft=H * T, reduction_osc=2 * H * T,
-        division_soft=H * T, division_osc=2 * H * T, division_hybrid=H * T,
+        # Normalization, counted per operation rather than per query. A row sum
+        # over k terms is k-1 additions, so summing every row costs P-T additions
+        # per head; each of the P weights is then divided by its row sum. Both
+        # mechanisms normalize this way, so both carry the same two terms. The
+        # oscillator additionally normalizes h onto the sphere: d_osc squares and
+        # d_osc divisions per query, which is a reduction over d_osc, not over T.
+        row_sum_adds=H * (P - T),
+        weight_divisions=H * P,
+        sphere_norm_ops=H * T * 2 * do,
         T_settle=T_SETTLE[task], T_settle_note=T_SETTLE_NOTE[task],
     )
 
@@ -105,13 +112,14 @@ def markdown(all_c):
         L.append(f"| exp evaluations | {_f(c['exp'])} (T exps/query) | {_f(c['exp'])} (softplus) |")
         L.append(f"| fixed-point MACs (Σ W·anchor) | — | {_f(c['fixed_point_macs'])} |")
         L.append(f"| readout MACs (cos s_ij) | — | {_f(c['readout_i_macs'])} |")
-        L.append(f"| global reduction (Σ over T) | {_f(c['reduction_soft'])} | {_f(c['reduction_osc'])} |")
-        L.append(f"| division | {_f(c['division_soft'])} | {_f(c['division_osc'])} |")
+        L.append(f"| row sum, adds (P-T) | {_f(c['row_sum_adds'])} | {_f(c['row_sum_adds'])} |")
+        L.append(f"| divisions, one per weight (P) | {_f(c['weight_divisions'])} | {_f(c['weight_divisions'])} |")
+        L.append(f"| normalization onto the sphere | — | {_f(c['sphere_norm_ops'])} |")
         L.append(f"| value-path MACs (V,A·V,O) | {_f(c['value_macs'])} | {_f(c['value_macs'])} |")
         soft_macs = c['qk_macs'] + c['value_macs']
         osc_macs = c['qk_macs'] + c['value_macs'] + c['fixed_point_macs'] + c['readout_i_macs']
         L.append(f"| **total MACs** | **{_f(soft_macs)}** | **{_f(osc_macs)}** |")
-        L.append(f"| **total exp / reduction / division** | **{_f(c['exp'])} / {_f(c['reduction_soft'])} / {_f(c['division_soft'])}** | **{_f(c['exp'])} / {_f(c['reduction_osc'])} / {_f(c['division_osc'])}** |")
+        L.append(f"| **total exp / row-sum adds / divisions** | **{_f(c['exp'])} / {_f(c['row_sum_adds'])} / {_f(c['weight_divisions'])}** | **{_f(c['exp'])} / {_f(c['row_sum_adds'])} / {_f(c['weight_divisions'])}** |")
         L.append("\n_Path A **favors softmax** in digital op count (the oscillator adds fixed-point "
                  "and readout MACs on top of the shared front-end). This is the training/evaluation "
                  "convention — not the proposed deployment._\n")
@@ -125,8 +133,8 @@ def markdown(all_c):
         L.append(f"| exp evaluations | {_f(c['exp'])} (T²) | **0** |")
         L.append(f"| readout (i) component/vector — d_osc MACs/pair | — | {_f(c['readout_i_macs'])} MACs |")
         L.append(f"| readout (ii) phase — T²·n_h cosine evals | — | {_f(c['readout_ii_cos'])} cosines |")
-        L.append(f"| row reduction (Σ over T) | {_f(c['reduction_soft'])} | {_f(c['reduction_osc']//2)} |")
-        L.append(f"| division (one per token) | {_f(c['division_soft'])} | {_f(c['division_hybrid'])} |")
+        L.append(f"| row sum, adds (P-T) | {_f(c['row_sum_adds'])} | {_f(c['row_sum_adds'])} |")
+        L.append(f"| divisions, one per weight (P) | {_f(c['weight_divisions'])} | {_f(c['weight_divisions'])} |")
         L.append(f"| value-path MACs (V,A·V,O) | {_f(c['value_macs'])} | {_f(c['value_macs'])} |")
         L.append(f"| **physical stage** (not ops/cycles) | — | settling horizon T_settle ≈ **{c['T_settle']}** (dimensionless, normalized units; {c['T_settle_note']}) |")
         L.append("\nReadout variants (both computed; **choice left open**, TBD by the fixed-point "
@@ -219,12 +227,12 @@ def stage_mae(c, coupling_weight=None):
     softplus variant the trained models actually use.
     """
     w = RELU_MAC_EQUIV if coupling_weight is None else coupling_weight
-    soft = c["exp"] * EXP_MAC_EQUIV + c["reduction_soft"] + c["division_soft"]
-    a = (c["exp"] * w + c["fixed_point_macs"] + c["readout_i_macs"]
-         + c["reduction_osc"] + c["division_osc"])
-    b = (c["exp"] * w + c["readout_i_macs"]
-         + c["reduction_osc"] // 2 + c["division_hybrid"])
-    c_ = c["exp"] * w + c["reduction_soft"] + c["division_soft"]
+    norm = c["row_sum_adds"] + c["weight_divisions"]
+    soft = c["exp"] * EXP_MAC_EQUIV + norm
+    a = (c["exp"] * w + c["fixed_point_macs"] + c["sphere_norm_ops"]
+         + c["readout_i_macs"] + norm)
+    b = c["exp"] * w + c["readout_i_macs"] + norm
+    c_ = c["exp"] * w + norm
     return dict(softmax_mae=soft, all_digital_mae=a,
                 equilibration_physical_mae=b, both_physical_mae=c_,
                 ratio_all_digital=soft / a, ratio_equilibration_physical=soft / b,
@@ -236,7 +244,7 @@ def stage_mae(c, coupling_weight=None):
 def softplus_identity(c):
     """With softplus coupling, Path C and softmax are the SAME expression.
 
-    Both reduce to exp*EXP_MAC_EQUIV + reduction_soft + division_soft, so the
+    Both reduce to exp*EXP_MAC_EQUIV + row_sum_adds + weight_divisions, so the
     ratio is exactly 1, by identity rather than by rounding.
     """
     m = stage_mae(c, coupling_weight=EXP_MAC_EQUIV)

@@ -12,11 +12,12 @@ Operation counts only — **no energy**. Per attention layer; dense pair count P
 | exp evaluations | 4,802 (T exps/query) | 4,802 (softplus) |
 | fixed-point MACs (Σ W·anchor) | — | 9,604 |
 | readout MACs (cos s_ij) | — | 9,604 |
-| global reduction (Σ over T) | 98 | 196 |
-| division | 98 | 196 |
+| row sum, adds (P-T) | 4,704 | 4,704 |
+| divisions, one per weight (P) | 4,802 | 4,802 |
+| normalization onto the sphere | — | 392 |
 | value-path MACs (V,A·V,O) | 177,184 | 177,184 |
 | **total MACs** | **354,368** | **373,576** |
-| **total exp / reduction / division** | **4,802 / 98 / 98** | **4,802 / 196 / 196** |
+| **total exp / row-sum adds / divisions** | **4,802 / 4,704 / 4,802** | **4,802 / 4,704 / 4,802** |
 
 _Path A **favors softmax** in digital op count (the oscillator adds fixed-point and readout MACs on top of the shared front-end). This is the training/evaluation convention — not the proposed deployment._
 
@@ -31,8 +32,8 @@ _Path A **favors softmax** in digital op count (the oscillator adds fixed-point 
 | exp evaluations | 4,802 (T²) | **0** |
 | readout (i) component/vector — d_osc MACs/pair | — | 9,604 MACs |
 | readout (ii) phase — T²·n_h cosine evals | — | 4,802 cosines |
-| row reduction (Σ over T) | 98 | 98 |
-| division (one per token) | 98 | 98 |
+| row sum, adds (P-T) | 4,704 | 4,704 |
+| divisions, one per weight (P) | 4,802 | 4,802 |
 | value-path MACs (V,A·V,O) | 177,184 | 177,184 |
 | **physical stage** (not ops/cycles) | — | settling horizon T_settle ≈ **5** (dimensionless, normalized units; measured (robustness_perturbations): metric flat/converged by T≈1–5) |
 
@@ -50,11 +51,12 @@ Readout variants (both computed; **choice left open**, TBD by the fixed-point im
 | exp evaluations | 81 (T exps/query) | 81 (softplus) |
 | fixed-point MACs (Σ W·anchor) | — | 162 |
 | readout MACs (cos s_ij) | — | 162 |
-| global reduction (Σ over T) | 9 | 18 |
-| division | 9 | 18 |
+| row sum, adds (P-T) | 72 | 72 |
+| divisions, one per weight (P) | 81 | 81 |
+| normalization onto the sphere | — | 36 |
 | value-path MACs (V,A·V,O) | 21,024 | 21,024 |
 | **total MACs** | **42,048** | **42,372** |
-| **total exp / reduction / division** | **81 / 9 / 9** | **81 / 18 / 18** |
+| **total exp / row-sum adds / divisions** | **81 / 72 / 81** | **81 / 72 / 81** |
 
 _Path A **favors softmax** in digital op count (the oscillator adds fixed-point and readout MACs on top of the shared front-end). This is the training/evaluation convention — not the proposed deployment._
 
@@ -69,8 +71,8 @@ _Path A **favors softmax** in digital op count (the oscillator adds fixed-point 
 | exp evaluations | 81 (T²) | **0** |
 | readout (i) component/vector — d_osc MACs/pair | — | 162 MACs |
 | readout (ii) phase — T²·n_h cosine evals | — | 81 cosines |
-| row reduction (Σ over T) | 9 | 9 |
-| division (one per token) | 9 | 9 |
+| row sum, adds (P-T) | 72 | 72 |
+| divisions, one per weight (P) | 81 | 81 |
 | value-path MACs (V,A·V,O) | 21,024 | 21,024 |
 | **physical stage** (not ops/cycles) | — | settling horizon T_settle ≈ **5** (dimensionless, normalized units; measured (robustness_perturbations SVA settling arm): relative residual vs the analytic fixed point is below the accuracy resolution by T=5) |
 
@@ -88,11 +90,12 @@ Readout variants (both computed; **choice left open**, TBD by the fixed-point im
 | exp evaluations | 33,024 (T exps/query) | 33,024 (softplus) |
 | fixed-point MACs (Σ W·anchor) | — | 264,192 |
 | readout MACs (cos s_ij) | — | 264,192 |
-| global reduction (Σ over T) | 512 | 1,024 |
-| division | 512 | 1,024 |
+| row sum, adds (P-T) | 32,512 | 32,512 |
+| divisions, one per weight (P) | 33,024 | 33,024 |
+| normalization onto the sphere | — | 8,192 |
 | value-path MACs (V,A·V,O) | 5,251,072 | 5,251,072 |
 | **total MACs** | **10,502,144** | **11,030,528** |
-| **total exp / reduction / division** | **33,024 / 512 / 512** | **33,024 / 1,024 / 1,024** |
+| **total exp / row-sum adds / divisions** | **33,024 / 32,512 / 33,024** | **33,024 / 32,512 / 33,024** |
 
 _Path A **favors softmax** in digital op count (the oscillator adds fixed-point and readout MACs on top of the shared front-end). This is the training/evaluation convention — not the proposed deployment._
 
@@ -107,8 +110,8 @@ _Path A **favors softmax** in digital op count (the oscillator adds fixed-point 
 | exp evaluations | 33,024 (T²) | **0** |
 | readout (i) component/vector — d_osc MACs/pair | — | 264,192 MACs |
 | readout (ii) phase — T²·n_h cosine evals | — | 33,024 cosines |
-| row reduction (Σ over T) | 512 | 512 |
-| division (one per token) | 512 | 512 |
+| row sum, adds (P-T) | 32,512 | 32,512 |
+| divisions, one per weight (P) | 33,024 | 33,024 |
 | value-path MACs (V,A·V,O) | 5,251,072 | 5,251,072 |
 | **physical stage** (not ops/cycles) | — | settling horizon T_settle ≈ **30** (dimensionless, normalized units; measured (robustness_perturbations): within 0.14% of analytic FP by T≈30) |
 
@@ -126,21 +129,21 @@ One exponential is counted as 10 multiply-adds and every other operation as one 
 
 | implementation | KWS | SVA | TinyStories |
 |---|---|---|---|
-| softmax | 48,216 | 828 | 331,264 |
-| oscillator, all digital | 24,402 | 441 | 563,456 |
-| oscillator, equilibration physical | 14,602 | 261 | 298,240 |
-| oscillator, equilibration and readout physical | 4,998 | 99 | 34,048 |
-| **softmax / oscillator** | 1.98x / 3.30x / 9.65x | 1.88x / 3.17x / 8.36x | 0.59x / 1.11x / 9.73x |
+| softmax | 57,526 | 963 | 395,776 |
+| oscillator, all digital | 33,908 | 594 | 635,136 |
+| oscillator, equilibration physical | 23,912 | 396 | 362,752 |
+| oscillator, equilibration and readout physical | 14,308 | 234 | 98,560 |
+| **softmax / oscillator** | 1.70x / 2.41x / 4.02x | 1.62x / 2.43x / 4.12x | 0.62x / 1.09x / 4.02x |
 
 **With softplus coupling.**
 
 | implementation | KWS | SVA | TinyStories |
 |---|---|---|---|
-| softmax | 48,216 | 828 | 331,264 |
-| oscillator, all digital | 67,620 | 1,170 | 860,672 |
-| oscillator, equilibration physical | 57,820 | 990 | 595,456 |
-| oscillator, equilibration and readout physical | 48,216 | 828 | 331,264 |
-| **softmax / oscillator** | 0.71x / 0.83x / 1.00x | 0.71x / 0.84x / 1.00x | 0.38x / 0.56x / 1.00x |
+| softmax | 57,526 | 963 | 395,776 |
+| oscillator, all digital | 77,126 | 1,323 | 932,352 |
+| oscillator, equilibration physical | 67,130 | 1,125 | 659,968 |
+| oscillator, equilibration and readout physical | 57,526 | 963 | 395,776 |
+| **softmax / oscillator** | 0.75x / 0.86x / 1.00x | 0.73x / 0.86x / 1.00x | 0.42x / 0.60x / 1.00x |
 
 With softplus coupling the last row equals the softmax row exactly: both reduce to the same expression, one exponential per pair plus one row sum and one division. Verified by integer equality in softplus_identity(): True.
 
