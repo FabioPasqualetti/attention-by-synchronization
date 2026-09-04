@@ -3,15 +3,16 @@
 Code, results, and figure scripts for the TMLR paper *Attention by Synchronization in
 Coupled Oscillator Networks*.
 
-We replace the softmax attention mechanism with a Kuramoto–Lohe oscillator ODE whose
-fixed point yields row-stochastic attention weights — eliminating both the softmax
-nonlinearity and the learned query matrix. Oscillators are initialized at fixed anchor
-positions on a hypersphere and driven by key–anchor similarities; their analytic fixed
-point provides a differentiable, hardware-friendly attention map. A readout sharpening
-exponent *p* interpolates between uniform and peaked attention; we use *p*=1 in the
-headline experiments because it is the hardware-native readout. We validate on keyword
-spotting (KWS), subject–verb agreement (SVA), WikiText-2 and TinyStories language
-modeling, matching or exceeding softmax baselines across all tasks.
+We replace softmax attention with a Kuramoto–Lohe oscillator ODE whose fixed point yields
+row-stochastic attention weights without a global exponential normalization. Learned
+anchors on a hypersphere play the role of queries and are held fixed at inference; free
+oscillators evolve under input-dependent couplings and settle at the unit vector along the
+weighted anchor sum. That fixed point has a closed form, so training is differentiable and
+integrates no ODE. A readout exponent *p* sharpens the attention distribution; the headline
+experiments use *p*=1, which can be read directly from oscillator hardware. We evaluate on
+keyword spotting (KWS), subject–verb agreement (SVA), WikiText-2 and TinyStories. The
+oscillator matches softmax on the two bidirectional tasks; softmax keeps an advantage on
+causal language modeling that narrows as the oscillator dimension grows.
 
 ```bibtex
 @article{pasqualetti2026attention,
@@ -33,8 +34,8 @@ training/               shared training backends, data loaders, run harness, pat
 data/                   dataset generators + fetcher (corpora are downloaded, not vendored)
 keyword_spotting/       Section 4.1 — keyword spotting (Google Speech Commands)
 sva/                    Section 4.1 — subject-verb agreement  (+ sva/checkpoints/, config-G)
-language_modeling/      Section 4.2 & Appendix C — TinyStories / WikiText-2 / PTB
-convergence/            Section 3 — ODE convergence
+language_modeling/      Section 4.2 & Appendix E — TinyStories / WikiText-2 (PTB supported, unused)
+convergence/            Section 4.4 — ODE convergence
 cost/                   Section 5 — operation accounting
 robustness/             Appendix — perturbation grid, frequency disorder
 theory/                 Section 3 — antipodal escape, degenerate tokens
@@ -90,7 +91,7 @@ Expected cache layout and approximate sizes:
 | SVA | `data/sva/*.jsonl` | shipped; regenerable via `training/sva_dataset.py` (fixed seeds) | ~8 MB |
 
 Penn Treebank is under LDC license and is **not** downloaded; place your own licensed,
-tokenized copy at `<cache>/ptb/ptb_maxlen50.pt`.
+tokenized copy at `<cache>/ptb/ptb_maxlen50.pt`. No paper result uses it.
 
 **Which TinyStories split gets evaluated.** `data/tinystories_eval/` ships the vocabulary
 and validation split the published numbers were computed on, and it **takes precedence over
@@ -112,7 +113,7 @@ corresponding model first (per-seed LM training ~= 1-4 h on one GPU/MPS device).
 
 Two sets **do** ship, because a paper table or figure depends on them directly and they are small:
 the config-G SVA checkpoints (`sva/checkpoints/`, < 1 MB — Table 3 and Figure 4) and the
-TinyStories d_osc=2 demo checkpoint (`figures/lib/models/TS_d2.pt`, 9.9 MB, with its vocabulary —
+TinyStories d_osc=2 demo checkpoint (`figures/lib/models/TS_d2.pt`, 9.4 MB, with its vocabulary —
 Figure 5). Both figures therefore regenerate from a clean clone with no training.
 
 ## Paper -> code map
@@ -130,7 +131,7 @@ Figure 5). Both figures therefore regenerate from a clean clone with no training
 | 7 — operation accounting | `cost/operation_accounting.py` (`stage_mae`) | `results/cost_operation_accounting/cost_tables.md`, the "With ReLU coupling" block | `runs/cost_operation_accounting` |
 | 8 — SVA d_ff sweep (App.) | `sva/architecture_sweep.py` | `results/sva/sva_arch_sweep_5seeds.json` | `runs/sva/` |
 | 9 — finite settling (App.) | `robustness/perturbations.py`, `robustness/sva_settling.py` | `results/robustness_perturbations` (`*_settle_*`) | `runs/robustness_perturbations` |
-| 10 — cost with softplus coupling (App.) | `cost/operation_accounting.py` | `results/cost_operation_accounting/cost_tables.md` | `runs/cost_operation_accounting` |
+| 10 — cost with softplus coupling (App.) | `cost/operation_accounting.py` (`stage_mae`) | `results/cost_operation_accounting/cost_tables.md`, the "With softplus coupling" block | `runs/cost_operation_accounting` |
 | 11 — absolute operation counts (App.) | `cost/operation_accounting.py` (`stage_mae`) | `results/cost_operation_accounting/cost_tables.md`, both coupling blocks | `runs/cost_operation_accounting` |
 
 Other appendix numbers: coupling ablation -> `language_modeling/coupling_function*.py`
@@ -146,7 +147,8 @@ position offset, and head scaling -> `language_modeling/{coupling_amplification,
 ### Figures
 
 Each script writes `figures/output/<stem>.pdf`, where `<stem>` is the name `main.tex` includes the
-figure by. Details and exact inputs are in `figures/README.md`.
+figure by. Details and exact inputs are in `figures/README.md`. Figure 1 is the architecture
+diagram, drawn in `main.tex`, and has no script.
 
 | Figure | script | output stem | reads |
 |---|---|---|---|

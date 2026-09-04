@@ -105,7 +105,7 @@ on WikiText-2 (`convergence/ode_verification.py`). No number in the paper comes 
 | `lm_dimensional_bottleneck/` | rank spectra, post-hoc truncation, reduced-Q/K rank-match sweep — **see that directory's `README.md`: it ships two truncation series and only `truncation_full_val_r*.json` is the published one** |
 | `lm_attention_entropy/` | attention-row entropy per mechanism / d_osc; `raw_*.json` hold the per-row samples |
 | `lm_tinystories_extrapolation/`, `lm_wikitext_extrapolation/` | out-of-sample power-law extrapolation to d_osc = 64, and the statistical test |
-| `lm_coupling_amplification/`, `lm_position_offset/`, `lm_head_scaling/` | the Appendix C analytic ablations (L4, L3, L5) |
+| `lm_coupling_amplification/`, `lm_position_offset/`, `lm_head_scaling/` | the Appendix E analytic ablations (L4, L3, L5) |
 | `lm_integrator_independence/` | integrator and horizon independence checks |
 | `robustness_perturbations/` | coupling mismatch, state noise, finite settling. `perturbation_grid.csv` aggregates the **KWS and TinyStories** arms only; the SVA settling arm (Table 9's SVA column) is in the per-run `sva_settle_*.json` files |
 | `robustness_frequency_disorder/` | natural-frequency disorder sweep |
